@@ -31,7 +31,7 @@
                     headline
                   >
 
-                        <div @click.stop="toRoute('home')">
+                        <div class="nanum-bold" @click.stop="toRoute('home')">
                           토. 계. 피.
                         </div>
 
@@ -82,7 +82,7 @@
       <!-- <v-list-tile @click="">
         <span @click.stop="toRoute('home')"> InsightStream.io </span>
       </v-list-tile> -->
-      <span nanum @click.stop="toRoute('home')"> 토계피 </span>
+      <span class="nanum-bold" @click.stop="toRoute('home')"> 토계피 </span>
     </v-toolbar-title>
     <v-layout row justify-center>
       <v-flex xs12 sm10 style="max-width: 750px">
@@ -175,9 +175,9 @@ div {
   font-weight: 400;
 }
 
-.nanum {
+.nanum-bold {
   font-family: 'Nanum Gothic', sans-serif;
-  font-weight: 400;
+  font-weight: bold;
 }
 
 .article-content {
