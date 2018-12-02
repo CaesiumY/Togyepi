@@ -131,8 +131,8 @@
         <v-icon>cached</v-icon>
       </v-btn>
       <span>새로고침</span>
-    </v-tooltip bottom>
-  </v-toolbar> -->
+    </v-tooltip bottom> -->
+  </v-toolbar>
 
   <v-content class="px-0">
     <v-container fluid fill-height class="px-0">
