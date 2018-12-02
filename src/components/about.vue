@@ -9,7 +9,7 @@
             size="200px"
             color="grey lighten-4"
           >
-            <img src="https://avatars1.githubusercontent.com/u/2455106?s=400" alt="avatar">
+            <img src="http://c.huv.kr/c/10/102a9a435472a5370b17640f64643812bc346335.jpg" alt="avatar">
           </v-avatar>
         </v-flex>
       </v-flex>

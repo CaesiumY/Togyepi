@@ -15,6 +15,11 @@ import CustXHR from './core/xhr'
 import Errors from './core/errors'
 import lstore from './core/lstorage'
 
+// DaySpanVuetify 달력 import
+import DaySpanVuetify from 'dayspan-vuetify'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import 'dayspan-vuetify/dist/lib/dayspan-vuetify.min.css'
+
 // components
 import ListCards from './components/shared/list_cards'
 import GridCards from './components/shared/grid_cards'
@@ -52,6 +57,8 @@ window.marked.setOptions({
   xhtml: false
 })
 
+Vue.config.productionTip = false
+
 Vue.use(Vuetify, {
   theme: {
     primary: '#03A9F4',
@@ -61,6 +68,12 @@ Vue.use(Vuetify, {
     warning: '#ffeb3b',
     info: '#2196f3',
     success: '#4caf50'
+  }
+})
+
+Vue.use(DaySpanVuetify, {
+  methods: {
+    getDefaultEventColor: () => '#1976d2'
   }
 })
 

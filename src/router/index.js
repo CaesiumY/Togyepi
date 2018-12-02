@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home'
 import VueHome from '@/components/vuejs/home'
-import VueTopics from '@/components/vuejs/topics'
-import About from '@/components/about'
+import VueCapture from '@/components/vuejs/topics'
+import VueCalendar from '@/components/about'
 import VueCreateArticle from '@/components/vuejs/articles/create'
 import VueViewArticle from '@/components/vuejs/articles/view'
 
@@ -25,14 +25,14 @@ const router = new Router({
     },
     {
       path: '/vuejs/topics',
-      name: 'vuejs_topics',
-      component: VueTopics,
+      name: 'vuejs_capture',
+      component: VueCapture,
       meta: {Auth: false}
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About,
+      path: '/calendar',
+      name: 'calendar',
+      component: VueCalendar,
       meta: {Auth: false}
     },
     {
