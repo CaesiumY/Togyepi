@@ -246,6 +246,7 @@ export default {
     toRoute (rname, rparams = {}, query = {}) {
       this.dialog = true
       this.$router.push({name: rname, params: rparams, query: query})
+      this.$forceUpdate()
     },
 
     getCalendarTime (calendarEvent) {

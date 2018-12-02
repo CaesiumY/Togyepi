@@ -118,22 +118,21 @@
     <v-btn dark icon v-else @click.stop="listView()">
       <v-icon>view_list</v-icon>
     </v-btn> -->
-    <v-tooltip bottom>
+
+
+    <!-- <v-tooltip bottom>
       <v-btn
-        href="https://github.com/CaesiumY/Togyepi" target="_blank"
         slot="activator"
         right
         icon
         dark
-        :loading="loading"
-        :disabled="loading"
-        @click="loader = 'loading'"
+        @click.stop="vm.$forceUpdate();"
         >
         <v-icon>cached</v-icon>
       </v-btn>
       <span>새로고침</span>
     </v-tooltip bottom>
-  </v-toolbar>
+  </v-toolbar> -->
 
   <v-content class="px-0">
     <v-container fluid fill-height class="px-0">
@@ -245,5 +244,9 @@ div {
   /*background: #272822 !important; // monokai */
   /*background: #f8f8f8 !important; // github */
   background: #23241f !important; /* monokai-sublime */
+}
+
+.v-content {
+  padding: 56px 0 0 0 !important;
 }
 </style>
