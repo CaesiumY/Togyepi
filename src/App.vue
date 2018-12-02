@@ -158,8 +158,8 @@
       items () {
         let menu = [
           { icon: 'dashboard', text: '계산', link: 'home', add: 'vuejs_create_article', ttip: 'Add Article' },
-          { icon: 'book', text: '사진', link: 'vuejs_topics' },
-          { icon: 'person', text: '플랜', link: 'about' }
+          { icon: 'camera_enhance', text: '사진', link: 'vuejs_topics' },
+          { icon: 'calendar_today', text: '플랜', link: 'about' }
         ]
         return menu
       },
