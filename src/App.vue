@@ -3,6 +3,7 @@
     id="inspire"
     style="background-color: #ffffff !important;"
   >
+  <!-- 앱셸 모델을 위한 drawer 추가 -->
     <v-navigation-drawer
     temporary
     app
@@ -76,15 +77,22 @@
     </v-list-tile>
     </v-list>
   </v-navigation-drawer>
+
+
+<!-- 맨 위 툴바 생성  -->
   <v-toolbar app fixed dark class="primary">
+    <!-- 툴바 사이드 아이콘으로 온오프 -->
     <v-toolbar-side-icon dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
     <v-toolbar-title class="mr-5 align-center">
       <!-- <v-list-tile @click="">
         <span @click.stop="toRoute('home')"> InsightStream.io </span>
       </v-list-tile> -->
+      <!-- 툴바 터치시 홈으로 -->
       <span class="nanum-bold" @click.stop="toRoute('home')"> 토계피 </span>
     </v-toolbar-title>
-    <v-layout row justify-center>
+
+    <!-- 검색창 -->
+    <!-- <v-layout row justify-center>
       <v-flex xs12 sm10 style="max-width: 750px">
         <v-text-field
           placeholder="Search..."
@@ -95,13 +103,15 @@
           hide-details
         ></v-text-field>
       </v-flex>
-    </v-layout>
-    <v-btn dark icon v-if="isList" @click.stop="listView()">
+    </v-layout> -->
+
+    <!-- 레이아웃 변경버튼 -->
+    <!-- <v-btn dark icon v-if="isList" @click.stop="listView()">
       <v-icon>apps</v-icon>
     </v-btn>
     <v-btn dark icon v-else @click.stop="listView()">
       <v-icon>view_list</v-icon>
-    </v-btn>
+    </v-btn> -->
   </v-toolbar>
 
   <v-content class="px-0">
@@ -109,6 +119,7 @@
       <v-layout row wrap>
         <v-flex xs12>
           <router-view>
+            <!-- 라우터의 템플릿을 표시 -->
           </router-view>
         </v-flex>
       </v-layout>
@@ -140,9 +151,9 @@
     computed: {
       items () {
         let menu = [
-          { icon: 'dashboard', text: 'Home', link: 'home', add: 'vuejs_create_article', ttip: 'Add Article' },
-          { icon: 'book', text: 'Topics', link: 'vuejs_topics' },
-          { icon: 'person', text: 'About', link: 'about' }
+          { icon: 'dashboard', text: '계산', link: 'home', add: 'vuejs_create_article', ttip: 'Add Article' },
+          { icon: 'book', text: '사진', link: 'vuejs_topics' },
+          { icon: 'person', text: '플랜', link: 'about' }
         ]
         return menu
       },
@@ -154,14 +165,15 @@
       toRoute (rname, rparams = {}, query = {}) {
         this.dialog = true
         this.$router.push({name: rname, params: rparams, query: query})
-      },
-      listView () {
-        this.isList = !this.isList
-        var eventName = 'emitListView'
-        window.bus.$emit(eventName, {
-          isList: this.isList
-        })
       }
+      // 레이아웃 변경 버튼 비활성화
+      // listView () {
+      //   this.isList = !this.isList
+      //   var eventName = 'emitListView'
+      //   window.bus.$emit(eventName, {
+      //     isList: this.isList
+      //   })
+      // }
     }
   }
 </script>

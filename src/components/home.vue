@@ -42,7 +42,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+
 @import url('https://fonts.googleapis.com/css?family=Archivo')
 
 
@@ -52,11 +52,6 @@ export default {
   font-size: 18px !important;
   font-weight: 400;
   cursor: pointer;
-}
-
-div {
-  font-family: 'Nanum Gothic', sans-serif;
-  font-weight: 600;
 }
 
 .title-font {
