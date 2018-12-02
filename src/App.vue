@@ -20,21 +20,23 @@
                   <v-flex xs12
                     align-center justify-center text-xs-center
                   >
-                    <v-avatar
-                      @click.stop="toRoute('home')"
-                      tile="tile"
-                      size="75"
-                    >
-                      <img src="./assets/logo_only.png" alt="avatar">
-                    </v-avatar>
+                    <button>
+                      <v-avatar
+                        @click.stop="toRoute('home')"
+                        tile="tile"
+                        size="75"
+                      >
+                        <img src="./assets/logo_only.png" alt="avatar">
+                      </v-avatar>
+                    </button>
                   </v-flex>
                   <v-flex xs12
                     align-center justify-center text-xs-center
                     headline
                   >
-                        <div class="nanum-bold" @click.stop="toRoute('home')">
+                        <button class="nanum-bold" @click.stop="toRoute('home')">
                           토. 계. 피.
-                        </div>
+                        </button>
                   </v-flex>
                 </v-layout>
               </v-container>
