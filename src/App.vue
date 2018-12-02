@@ -21,6 +21,7 @@
                     align-center justify-center text-xs-center
                   >
                     <v-avatar
+                      @click.stop="toRoute('home')"
                       tile="tile"
                       size="75"
                     >
@@ -31,11 +32,9 @@
                     align-center justify-center text-xs-center
                     headline
                   >
-
                         <div class="nanum-bold" @click.stop="toRoute('home')">
                           토. 계. 피.
                         </div>
-
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -52,26 +51,33 @@
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content @click.stop="toRoute(item.link)">
-          <v-list-tile-title>
+          <v-list-tile-title style="font-size: 17.5px">
             {{ item.text }}
           </v-list-tile-title>
         </v-list-tile-content>
-        <v-list-tile-action v-if="item.add">
+        <!-- Add 버튼 타일 -->
+        <!-- <v-list-tile-action v-if="item.add">
             <v-tooltip right>
               <v-icon dark color="primary" @click.stop="toRoute(item.add)" slot="activator">add</v-icon>
                <span>{{item.ttip}}</span>
             </v-tooltip>
-        </v-list-tile-action>
+        </v-list-tile-action> -->
+
       </v-list-tile>
     </template>
     <v-spacer></v-spacer>
+    <v-divider></v-divider>
     <v-list-tile >
       <v-list-tile-action>
         <v-icon>copyright</v-icon>
       </v-list-tile-action>
       <v-list-tile-content>
         <v-list-tile-title>
-          Copyright by CS production<!-- {{ year }} -->
+          <v-tooltip bottom>
+            <a slot="activator" href="https://github.com/CaesiumY/Togyepi" target="_blank">
+              Copyright by CS production<!-- {{ year }} --></a>
+            <span>클릭시 github 페이지로 연결됩니다</span>
+          </v-tooltip>
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
@@ -80,15 +86,15 @@
 
 
 <!-- 맨 위 툴바 생성  -->
-  <v-toolbar app fixed dark class="primary">
+  <v-toolbar color="teal lighten-3" app fixed dark >
     <!-- 툴바 사이드 아이콘으로 온오프 -->
     <v-toolbar-side-icon dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
-    <v-toolbar-title class="mr-5 align-center">
+    <v-toolbar-title class="mr-5 align-center" >
       <!-- <v-list-tile @click="">
         <span @click.stop="toRoute('home')"> InsightStream.io </span>
       </v-list-tile> -->
       <!-- 툴바 터치시 홈으로 -->
-      <span class="nanum-bold" @click.stop="toRoute('home')"> 토계피 </span>
+      <button class="nanum-bold" @click.stop="toRoute('home')"> 토계피 </button>
     </v-toolbar-title>
 
     <!-- 검색창 -->
