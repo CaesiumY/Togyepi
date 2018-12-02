@@ -87,7 +87,7 @@
 
 <!-- 맨 위 툴바 생성  -->
   <v-toolbar color="teal lighten-3" app fixed dark >
-    <!-- 툴바 사이드 아이콘으로 온오프 -->
+    <!-- 네비게이션 drawer 아이콘으로 온오프 -->
     <v-toolbar-side-icon dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
     <v-toolbar-title class="mr-5 align-center" >
       <!-- <v-list-tile @click="">
@@ -98,8 +98,8 @@
     </v-toolbar-title>
 
     <!-- 검색창 -->
-    <!-- <v-layout row justify-center>
-      <v-flex xs12 sm10 style="max-width: 750px">
+    <v-layout row justify-center>
+      <!-- <v-flex xs12 sm10 style="max-width: 750px">
         <v-text-field
           placeholder="Search..."
           single-line
@@ -108,8 +108,8 @@
           dark
           hide-details
         ></v-text-field>
-      </v-flex>
-    </v-layout> -->
+      </v-flex> -->
+    </v-layout>
 
     <!-- 레이아웃 변경버튼 -->
     <!-- <v-btn dark icon v-if="isList" @click.stop="listView()">
@@ -118,6 +118,21 @@
     <v-btn dark icon v-else @click.stop="listView()">
       <v-icon>view_list</v-icon>
     </v-btn> -->
+    <v-tooltip bottom>
+      <v-btn
+        href="https://github.com/CaesiumY/Togyepi" target="_blank"
+        slot="activator"
+        right
+        icon
+        dark
+        :loading="loading"
+        :disabled="loading"
+        @click="loader = 'loading'"
+        >
+        <v-icon>cached</v-icon>
+      </v-btn>
+      <span>새로고침</span>
+    </v-tooltip bottom>
   </v-toolbar>
 
   <v-content class="px-0">
