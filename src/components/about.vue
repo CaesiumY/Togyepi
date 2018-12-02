@@ -1,19 +1,10 @@
-<template>
+<template style="margin-top: 56px">
   <v-app id="dayspan" v-cloak>
     <ds-calendar-app ref="app"
     :calendar="calendar"
     :read-only="readOnly"
     @change="saveState"
     >
-    
-
-    <template slot="menuRight">
-      <v-btn icon large href="https://github.com/ClickerMonkey/dayspan-vuetify" target="_blank">
-        <v-avatar size="32px" tile>
-          <img src="https://simpleicons.org/icons/github.svg" alt="Github">
-        </v-avatar>
-      </v-btn>
-    </template>
 
     <template slot="eventPopover" slot-scope="slotData">
        <ds-calendar-event-popover
@@ -58,6 +49,11 @@ export default {
   name: 'app',
 
   data: () => ({
+    show: false,
+    article: {
+      title: 'Lorum ipsum title'
+    },
+
     storeKey: 'dayspanState',
     calendar: Calendar.months(),
     readOnly: false,
@@ -312,12 +308,17 @@ body, html, #app, #dayspan {
   font-family: Roboto, sans-serif !important;
   width: 100%;
   height: 100%;
+
 }
 
 .v-btn--flat,
 .v-text-field--solo .v-input__slot {
   background-color: #f5f5f5 !important;
   margin-bottom: 8px !important;
+}
+
+.ds-app-calendar-toolbar {
+  margin-top: 56px !important;
 }
 
 </style>
