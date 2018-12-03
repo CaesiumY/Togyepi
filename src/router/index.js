@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/home'
 import VueHome from '@/components/vuejs/home'
 import VueCapture from '@/components/vuejs/topics'
-import VueCalendar from '@/components/about'
+import VueCalendar from '@/components/dayspan'
 import VueCreateArticle from '@/components/vuejs/articles/create'
 import VueViewArticle from '@/components/vuejs/articles/view'
 
