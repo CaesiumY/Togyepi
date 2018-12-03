@@ -1,16 +1,50 @@
 <template>
   <v-layout column>
-    <v-flex xs10 offset-xs1 >
+    <v-container fluid>
+          <v-layout row wrap align-center>
+            <!-- select박스 추가 -->
+            <v-flex xs12 pa-5 mb-3>
+                <v-select
+                  :items="calculates"
+                  v-model="e1"
+                  menu-props="auto"
+                  label="종류 선택"
+                  hide-details
+                  prepend-inner-icon="arrow_drop_down_circle"
+                  single-line
+                  outline
+                ></v-select>
+            </v-flex>
+
+            <!-- 텍스트 에리어 추가 -->
+            <v-flex xs6 sm6 md3>
+               <v-text-field
+                 label="p1"
+                 box
+               ></v-text-field>
+             </v-flex>
+
+             <v-flex xs6 sm6 md3>
+                <v-text-field
+                  label="p2"
+                  standard
+                ></v-text-field>
+              </v-flex>
+
+          </v-layout>
+        </v-container>
+
+    <!-- <v-flex xs10 offset-xs1 >
       <ul>
         <li
-          class="article lighten--text"
+          class="article lighten-text"
           style="list-style-type: none;"
           v-for="(article, idx) in articles" :key="idx">
           <div v-if="article.link.indexOf('http') >= 0" class="title-font" @click="toExtRoute(article.link)"> [{{article.created}}] {{article.title}} </div>
           <div v-else class="title-font" @click="toRoute('vuejs_home')"> [{{article.created}}] {{article.title}} </div>
         </li>
       </ul>
-    </v-flex>
+    </v-flex> -->
   </v-layout>
 </template>
 <script>
@@ -22,20 +56,23 @@ export default {
   data: () => ({
     show: false,
     isList: false,
-    articles: [
-      {title: 'Vuejs 2 + vuetifyjs content sharing template', created: 'June 18\'', link: 'vuejs_home'},
-      {title: 'Go + Gin + ElasticSearch - Modular rest engine', created: 'June 18\'', link: 'https://github.com/nareshganesan/services/tree/dev'}
+    // articles: [
+    //   {title: 'Vuejs 2 + vuetifyjs content sharing template', created: 'June 18\'', link: 'vuejs_home'},
+    //   {title: 'Go + Gin + ElasticSearch - Modular rest engine', created: 'June 18\'', link: 'https://github.com/nareshganesan/services/tree/dev'}
+    // ]
+    calculates: [
+      '1번', '2번', '3번'
     ]
   }),
   methods: {
     toRoute (rname, rparams = {}, query = {}) {
       this.dialog = true
       this.$router.push({name: rname, params: rparams, query: query})
-    },
-    toExtRoute (rname) {
-      window.location = rname
-      return false
     }
+    // toExtRoute (rname) {
+    //   window.location = rname
+    //   return false
+    // }
   }
 }
 </script>

@@ -50,7 +50,7 @@
     <template  >
       <v-list-tile v-for="(item, i) in items" :key="i" @click="" >
         <v-list-tile-action @click.stop="toRoute(item.link)">
-          <v-icon>{{ item.icon }}</v-icon>
+          <v-icon large color="teal lighten-3">{{ item.icon }}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content @click.stop="toRoute(item.link)">
           <v-list-tile-title style="font-size: 17.5px">
