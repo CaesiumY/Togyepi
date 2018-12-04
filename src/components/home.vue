@@ -3,10 +3,12 @@
     <v-container fluid>
           <v-layout row wrap align-center>
             <!-- select박스 추가 -->
-            <v-flex xs12 pa-5 mb-3>
+            <v-flex xs12 pa-5>
                 <v-select
+                  v-model="selected"
                   :items="calculates"
-                  v-model="e1"
+                  item-text="title"
+                  item-value="id"
                   menu-props="auto"
                   label="종류 선택"
                   hide-details
@@ -16,20 +18,17 @@
                 ></v-select>
             </v-flex>
 
-            <!-- 텍스트 에리어 추가 -->
-            <v-flex xs6 sm6 md3>
+            <!-- 선택 값에 따른 텍스트 에리어 추가 -->
+            <v-flex sm6 md3 ma-3>
                <v-text-field
-                 label="p1"
-                 box
+                 v-for="(calculate, i) in selected"
+                 :key="calculate.id"
+                 :title="calculate.title"
+                 label= 'p'
+                 solo
+                 mask=#########
                ></v-text-field>
              </v-flex>
-
-             <v-flex xs6 sm6 md3>
-                <v-text-field
-                  label="p2"
-                  standard
-                ></v-text-field>
-              </v-flex>
 
           </v-layout>
         </v-container>
@@ -61,8 +60,12 @@ export default {
     //   {title: 'Go + Gin + ElasticSearch - Modular rest engine', created: 'June 18\'', link: 'https://github.com/nareshganesan/services/tree/dev'}
     // ]
     calculates: [
-      '1번', '2번', '3번'
-    ]
+      {id: 1, title: '1개'},
+      {id: 2, title: '2개'},
+      {id: 3, title: '3개'},
+      {id: 4, title: '4개'}
+    ],
+    selected: 0
   }),
   methods: {
     toRoute (rname, rparams = {}, query = {}) {

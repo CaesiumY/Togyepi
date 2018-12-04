@@ -24,7 +24,7 @@
                       <v-avatar
                         @click.stop="toRoute('home')"
                         tile="tile"
-                        size="75"
+                        size="125"
                       >
                         <img src="./assets/logo_only.png" alt="avatar">
                       </v-avatar>
