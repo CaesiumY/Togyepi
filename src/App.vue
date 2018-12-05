@@ -173,15 +173,15 @@
     computed: {
       items () {
         let menu = [
-          { icon: 'dashboard', text: '계산', link: 'home', add: 'vuejs_create_article', ttip: 'Add Article' },
+          { icon: 'dashboard', text: '계산', link: 'home' },
           { icon: 'camera_enhance', text: '사진', link: 'vuejs_capture' },
           { icon: 'calendar_today', text: '플랜', link: 'calendar' }
         ]
         return menu
-      },
-      year () {
-        return new Date().getFullYear()
       }
+      // year () {
+      //   return new Date().getFullYear()
+      // }
     },
     methods: {
       toRoute (rname, rparams = {}, query = {}) {

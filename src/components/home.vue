@@ -21,6 +21,7 @@
             <!-- 선택 값에 따른 텍스트 에리어 추가 -->
             <v-flex sm6 md3 ma-3>
                <v-text-field
+                 v-model="calculateValues[i]"
                  v-for="(calculate, i) in selected"
                  :key="calculate.id"
                  :title="calculate.title"
@@ -28,7 +29,31 @@
                  solo
                  mask=#########
                ></v-text-field>
+               <span>{{ calculateValues }}</span>
+
+               <v-flex xs12 sm6>
+                  <v-text-field
+                    label="입력 값"
+                    box
+                    readonly
+                    v-model="afterCalc"
+                  ></v-text-field>
+
+                  <v-flex xs12>
+                    <v-btn
+                      round color="primary"
+                      dark
+                      outline
+                      block
+
+                    >
+                    계산하기
+                    </v-btn>
+                   </v-flex>
+                </v-flex>
              </v-flex>
+
+             <!-- 결과값 출력 -->
 
           </v-layout>
         </v-container>
@@ -47,7 +72,6 @@
   </v-layout>
 </template>
 <script>
-
 export default {
   name: 'Home',
   created () {
@@ -65,17 +89,21 @@ export default {
       {id: 3, title: '3개'},
       {id: 4, title: '4개'}
     ],
-    selected: 0
+    selected: 0,
+    calculateValues: []
+    // afterCalc: 0
   }),
+
   methods: {
     toRoute (rname, rparams = {}, query = {}) {
       this.dialog = true
       this.$router.push({name: rname, params: rparams, query: query})
     }
-    // toExtRoute (rname) {
-    //   window.location = rname
-    //   return false
-    // }
+  },
+  computed: {
+    afterCalc: function () {
+      return this.calculateValues[0] * this.calculateValues[1]
+    }
   }
 }
 </script>
