@@ -40,7 +40,7 @@
                     box
                     readonly
                     v-model="afterCalc2"
-                  ></v-text-field>
+                  >1</v-text-field>
 
                   <v-text-field
                     v-else-if="selected == 3"
