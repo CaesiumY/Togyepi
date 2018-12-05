@@ -31,30 +31,54 @@
                ></v-text-field>
                <span>{{ calculateValues }}</span>
 
+               <!-- 결과값 출력 -->
+
                <v-flex xs12 sm6>
                   <v-text-field
+                    v-if="selected == 2"
                     label="입력 값"
                     box
                     readonly
-                    v-model="afterCalc"
+                    v-model="afterCalc2"
                   ></v-text-field>
 
-                  <v-flex xs12>
+                  <v-text-field
+                    v-else-if="selected == 3"
+                    label="입력 값"
+                    box
+                    readonly
+                    v-model="afterCalc3"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 4"
+                    label="입력 값"
+                    box
+                    readonly
+                    v-model="afterCalc4"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 5"
+                    label="입력 값"
+                    box
+                    readonly
+                    v-model="afterCalc5"
+                  ></v-text-field>
+
+                  <!-- 계산 결과 출력 버튼 -->
+                  <!-- <v-flex xs12>
                     <v-btn
                       round color="primary"
                       dark
                       outline
                       block
-
                     >
                     계산하기
                     </v-btn>
-                   </v-flex>
+                   </v-flex> -->
                 </v-flex>
              </v-flex>
-
-             <!-- 결과값 출력 -->
-
           </v-layout>
         </v-container>
 
@@ -84,10 +108,10 @@ export default {
     //   {title: 'Go + Gin + ElasticSearch - Modular rest engine', created: 'June 18\'', link: 'https://github.com/nareshganesan/services/tree/dev'}
     // ]
     calculates: [
-      {id: 1, title: '1개'},
       {id: 2, title: '2개'},
       {id: 3, title: '3개'},
-      {id: 4, title: '4개'}
+      {id: 4, title: '4개'},
+      {id: 5, title: '5개'}
     ],
     selected: 0,
     calculateValues: []
@@ -101,8 +125,17 @@ export default {
     }
   },
   computed: {
-    afterCalc: function () {
+    afterCalc2: function () {
       return this.calculateValues[0] * this.calculateValues[1]
+    },
+    afterCalc3: function () {
+      return this.calculateValues[0] * this.calculateValues[1] * this.calculateValues[2]
+    },
+    afterCalc4: function () {
+      return this.calculateValues[0] * this.calculateValues[1] * this.calculateValues[2] * this.calculateValues[3]
+    },
+    afterCalc5: function () {
+      return this.calculateValues[0] * this.calculateValues[1] * this.calculateValues[2] * this.calculateValues[3] * this.calculateValues[4]
     }
   }
 }
