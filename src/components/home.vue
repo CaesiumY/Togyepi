@@ -17,7 +17,6 @@
                   outline
                 ></v-select>
             </v-flex>
-               <span>{{ calculateValues }}</span>
                <!-- 결과값 출력 -->
                <v-flex xs12 sm6>
                   <v-text-field
@@ -132,6 +131,8 @@
                     v-model="Nitrate_nitrogen_Brucine_wetsoil"
                   ></v-text-field>
 
+                  <span>{{ calculateValues }}</span>
+
                   <!-- 선택 값에 따른 텍스트 에리어 추가 -->
                   <v-flex sm6 md3 ma-3>
                      <v-text-field
@@ -140,7 +141,7 @@
                        v-model="calculateValues[i]"
                        label= "입력 값"
                        solo
-                       mask=##################
+                       type="number"                                                                    
                      ></v-text-field>
 
                 </v-flex>
