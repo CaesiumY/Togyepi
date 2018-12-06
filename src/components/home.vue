@@ -131,17 +131,15 @@
                     v-model="Nitrate_nitrogen_Brucine_wetsoil"
                   ></v-text-field>
 
-                  <span>{{ calculateValues }}</span>
-
                   <!-- 선택 값에 따른 텍스트 에리어 추가 -->
                   <v-flex sm6 md3 ma-3>
                      <v-text-field
-                       v-for="(sel, i) in selected"
+                       v-for="(sel, i) in NumofParams[selected-1]"
                        :key="sel.id"
                        v-model="calculateValues[i]"
                        label= "입력 값"
                        solo
-                       type="number"                                                                    
+                       type="number"
                      ></v-text-field>
 
                 </v-flex>
@@ -180,7 +178,8 @@ export default {
     ],
     selected: 0,
     calculateValues: [],
-    calcFunctions: ['CEC', 'Microwave', 'Organic_carbon_content_of_soil', 'Nitrogen']
+    calcFunctions: ['CEC', 'Microwave', 'Organic_carbon_content_of_soil', 'Nitrogen'],
+    NumofParams: [0, 2, 3, 4, 5, 4, 4, 1, 1, 7, 7, 3, 5, 3, 5]
   }),
 
   methods: {
