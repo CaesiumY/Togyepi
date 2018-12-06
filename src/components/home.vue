@@ -17,22 +17,8 @@
                   outline
                 ></v-select>
             </v-flex>
-
-            <!-- 선택 값에 따른 텍스트 에리어 추가 -->
-            <v-flex sm6 md3 ma-3>
-               <v-text-field
-                 v-model="calculateValues[i]"
-                 v-for="(calculate, i) in selected"
-                 :key="calculate.id"
-                 :title="calculate.title"
-                 label= 'p'
-                 solo
-                 mask=#########
-               ></v-text-field>
                <span>{{ calculateValues }}</span>
-
                <!-- 결과값 출력 -->
-
                <v-flex xs12 sm6>
                   <v-text-field
                     v-if="selected == 2"
@@ -40,7 +26,7 @@
                     box
                     readonly
                     v-model="CEC"
-                  >1</v-text-field>
+                  ></v-text-field>
 
                   <v-text-field
                     v-else-if="selected == 3"
@@ -66,33 +52,101 @@
                     v-model="Nitrogen"
                   ></v-text-field>
 
-                  <!-- 계산 결과 출력 버튼 -->
-                  <!-- <v-flex xs12>
-                    <v-btn
-                      round color="primary"
-                      dark
-                      outline
-                      block
-                    >
-                    계산하기
-                    </v-btn>
-                   </v-flex> -->
+                  <v-text-field
+                    v-else-if="selected == 6"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="EC"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 7"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Salinity"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 8"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Cl_2"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 9"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Cl_1"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 10"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Ammonia_nitrogen_Kjeldahl"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 11"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Nitrate_nitrogen_Kjeldahl"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 12"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Ammonia_nitrogen_Indophenol_Blue_drysoil"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 13"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Ammonia_nitrogen_Indophenol_Blue_wetsoil"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 14"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Nitrate_nitrogen_Brucine_drysoil"
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-else-if="selected == 15"
+                    label="계산 값"
+                    box
+                    readonly
+                    v-model="Nitrate_nitrogen_Brucine_wetsoil"
+                  ></v-text-field>
+
+                  <!-- 선택 값에 따른 텍스트 에리어 추가 -->
+                  <v-flex sm6 md3 ma-3>
+                     <v-text-field
+                       v-for="(sel, i) in selected"
+                       :key="sel.id"
+                       v-model="calculateValues[i]"
+                       label= "입력 값"
+                       solo
+                       mask=##################
+                     ></v-text-field>
+
                 </v-flex>
              </v-flex>
           </v-layout>
         </v-container>
-
-    <!-- <v-flex xs10 offset-xs1 >
-      <ul>
-        <li
-          class="article lighten-text"
-          style="list-style-type: none;"
-          v-for="(article, idx) in articles" :key="idx">
-          <div v-if="article.link.indexOf('http') >= 0" class="title-font" @click="toExtRoute(article.link)"> [{{article.created}}] {{article.title}} </div>
-          <div v-else class="title-font" @click="toRoute('vuejs_home')"> [{{article.created}}] {{article.title}} </div>
-        </li>
-      </ul>
-    </v-flex> -->
   </v-layout>
 </template>
 <script>
@@ -108,14 +162,24 @@ export default {
     //   {title: 'Go + Gin + ElasticSearch - Modular rest engine', created: 'June 18\'', link: 'https://github.com/nareshganesan/services/tree/dev'}
     // ]
     calculates: [
-      {id: 2, title: 'CEC'},
-      {id: 3, title: '중금속'},
-      {id: 4, title: '토양의 유기탄소함량'},
-      {id: 5, title: '전질소 계산'}
+      {id: 2, title: 'CEC', params: 2},
+      {id: 3, title: '중금속', params: 3},
+      {id: 4, title: '토양의 유기탄소함량', params: 4},
+      {id: 5, title: '전질소 계산', params: 5},
+      {id: 6, title: 'EC계산', params: 4},
+      {id: 7, title: '염농도 계산', params: 4},
+      {id: 8, title: '0.02-N AgNO3 적정 계산', params: 1},
+      {id: 9, title: '0.01-N AgNO3 적정 계산', params: 1},
+      {id: 10, title: '암모니아태 질소(NH4+-N) 계산', params: 7},
+      {id: 11, title: '질산태 질소(NO3-N) Kjeldahl법', params: 7},
+      {id: 12, title: '암모니아태 질소(NH4+-N) Indophenol - Blue 비색법(건토)', params: 3},
+      {id: 13, title: '암모니아태 질소(NH4+-N) Indophenol - Blue 비색법(습토)', params: 5},
+      {id: 14, title: '질산태 질소(NO3--N) Brucine 비색법(건토)', params: 3},
+      {id: 15, title: '질산태 질소(NO3--N) Brucine 비색법(습토)', params: 5}
     ],
     selected: 0,
-    calculateValues: []
-    // afterCalc: 0
+    calculateValues: [],
+    calcFunctions: ['CEC', 'Microwave', 'Organic_carbon_content_of_soil', 'Nitrogen']
   }),
 
   methods: {
@@ -125,18 +189,48 @@ export default {
     }
   },
   computed: {
-    Organic_carbon_content_of_soil: function () {
+    Organic_carbon_content_of_soil: function () { // 4개
       var C = (this.calculateValues[0] - this.calculateValues[1]) * this.calculateValues[2] * (12 / 4000) * (100 / this.calculateValues[3])
       return C * 1.724
     },
-    Microwave: function () {
+    Microwave: function () { // 3개
       return (this.calculateValues[0] - this.calculateValues[1]) * 100 / this.calculateValues[2]
     },
-    CEC: function () {
+    CEC: function () { // 2개
       return (this.calculateValues[0] - this.calculateValues[1]) * 5
     },
-    Nitrogen: function () {
+    Nitrogen: function () { // 5개
       return (this.calculateValues[0] - this.calculateValues[1]) * this.calculateValues[2] * this.calculateValues[3] * 14 * 1 / 1000 * 1 / this.calculateValues[4] * 100
+    },
+    EC: function () { // 4개
+      return (this.calculateValues[0] / this.calculateValues[1]) * this.calculateValues[2] * this.calculateValues[3]
+    },
+    Salinity: function () { // 4개
+      return (this.calculateValues[0] / this.calculateValues[1]) * this.calculateValues[2] * this.calculateValues[3] * 0.064
+    },
+    Cl_2: function () { // 1개
+      return 5 * 0.04 * 0.07091 * 10000 * this.calculateValues[0]
+    },
+    Cl_1: function () { // 1개
+      return 5 * 0.04 * 0.03545 * 10000 * this.calculateValues[0]
+    },
+    Ammonia_nitrogen_Kjeldahl: function () { // 7개
+      return (this.calculateValues[0] - this.calculateValues[1]) * this.calculateValues[2] * this.calculateValues[3] * 14 * (1 / 1000) * (this.calculateValues[4] / this.calculateValues[5]) * (1 / this.calculateValues[6]) * 1000000
+    },
+    Nitrate_nitrogen_Kjeldahl: function () { // 7개
+      return (this.calculateValues[0] - this.calculateValues[1]) * this.calculateValues[2] * this.calculateValues[3] * 14 * (1 / 1000) * (this.calculateValues[4] / this.calculateValues[5]) * (1 / this.calculateValues[6]) * 1000000
+    },
+    Ammonia_nitrogen_Indophenol_Blue_drysoil: function () { // 3개
+      return this.calculateValues[0] * (50 / 5) * this.calculateValues[1] * this.calculateValues[2]
+    },
+    Ammonia_nitrogen_Indophenol_Blue_wetsoil: function () { // 5개
+      return this.calculateValues[0] * this.calculateValues[1] * this.calculateValues[2] * (50 + (this.calculateValues[3] - this.calculateValues[4])) / this.calculateValues[3]
+    },
+    Nitrate_nitrogen_Brucine_drysoil: function () { // 3개
+      return this.calculateValues[0] * (50 / 5) * this.calculateValues[1] * this.calculateValues[2]
+    },
+    Nitrate_nitrogen_Brucine_wetsoil: function () { // 5개
+      return this.calculateValues[0] * this.calculateValues[1] * this.calculateValues[2] * (50 + (this.calculateValues[3] - this.calculateValues[4])) / this.calculateValues[3]
     }
   }
 }
