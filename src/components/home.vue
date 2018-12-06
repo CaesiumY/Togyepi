@@ -36,34 +36,34 @@
                <v-flex xs12 sm6>
                   <v-text-field
                     v-if="selected == 2"
-                    label="입력 값"
+                    label="계산 값"
                     box
                     readonly
-                    v-model="afterCalc2"
+                    v-model="CEC"
                   >1</v-text-field>
 
                   <v-text-field
                     v-else-if="selected == 3"
-                    label="입력 값"
+                    label="계산 값"
                     box
                     readonly
-                    v-model="afterCalc3"
+                    v-model="Microwave"
                   ></v-text-field>
 
                   <v-text-field
                     v-else-if="selected == 4"
-                    label="입력 값"
+                    label="계산 값"
                     box
                     readonly
-                    v-model="afterCalc4"
+                    v-model="Organic_carbon_content_of_soil"
                   ></v-text-field>
 
                   <v-text-field
                     v-else-if="selected == 5"
-                    label="입력 값"
+                    label="계산 값"
                     box
                     readonly
-                    v-model="afterCalc5"
+                    v-model="Nitrogen"
                   ></v-text-field>
 
                   <!-- 계산 결과 출력 버튼 -->
@@ -108,10 +108,10 @@ export default {
     //   {title: 'Go + Gin + ElasticSearch - Modular rest engine', created: 'June 18\'', link: 'https://github.com/nareshganesan/services/tree/dev'}
     // ]
     calculates: [
-      {id: 2, title: '2개'},
-      {id: 3, title: '3개'},
-      {id: 4, title: '4개'},
-      {id: 5, title: '5개'}
+      {id: 2, title: 'CEC'},
+      {id: 3, title: '중금속'},
+      {id: 4, title: '토양의 유기탄소함량'},
+      {id: 5, title: '전질소 계산'}
     ],
     selected: 0,
     calculateValues: []
@@ -125,17 +125,18 @@ export default {
     }
   },
   computed: {
-    afterCalc2: function () {
-      return this.calculateValues[0] * this.calculateValues[1]
+    Organic_carbon_content_of_soil: function () {
+      var C = (this.calculateValues[0] - this.calculateValues[1]) * this.calculateValues[2] * (12 / 4000) * (100 / this.calculateValues[3])
+      return C * 1.724
     },
-    afterCalc3: function () {
-      return this.calculateValues[0] * this.calculateValues[1] * this.calculateValues[2]
+    Microwave: function () {
+      return (this.calculateValues[0] - this.calculateValues[1]) * 100 / this.calculateValues[2]
     },
-    afterCalc4: function () {
-      return this.calculateValues[0] * this.calculateValues[1] * this.calculateValues[2] * this.calculateValues[3]
+    CEC: function () {
+      return (this.calculateValues[0] - this.calculateValues[1]) * 5
     },
-    afterCalc5: function () {
-      return this.calculateValues[0] * this.calculateValues[1] * this.calculateValues[2] * this.calculateValues[3] * this.calculateValues[4]
+    Nitrogen: function () {
+      return (this.calculateValues[0] - this.calculateValues[1]) * this.calculateValues[2] * this.calculateValues[3] * 14 * 1 / 1000 * 1 / this.calculateValues[4] * 100
     }
   }
 }
