@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home'
-import VueHome from '@/components/vuejs/home'
-import VueCapture from '@/components/vuejs/topics'
+import VueCapture from '@/components/capture'
 import VueCalendar from '@/components/dayspan'
-import VueCreateArticle from '@/components/vuejs/articles/create'
-import VueViewArticle from '@/components/vuejs/articles/view'
 
 Vue.use(Router)
 
@@ -18,13 +15,7 @@ const router = new Router({
       meta: {Auth: false}
     },
     {
-      path: '/vuejs',
-      name: 'vuejs_home',
-      component: VueHome,
-      meta: {Auth: false}
-    },
-    {
-      path: '/vuejs/topics',
+      path: '/vuejs_capture',
       name: 'vuejs_capture',
       component: VueCapture,
       meta: {Auth: false}
@@ -33,18 +24,6 @@ const router = new Router({
       path: '/calendar',
       name: 'calendar',
       component: VueCalendar,
-      meta: {Auth: false}
-    },
-    {
-      path: '/vuejs/article/',
-      name: 'vuejs_create_article',
-      component: VueCreateArticle,
-      meta: {Auth: false}
-    },
-    {
-      path: '/vuejs/article/:id',
-      name: 'vuejs_view_article',
-      component: VueViewArticle,
       meta: {Auth: false}
     }
   ]

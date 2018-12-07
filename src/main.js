@@ -21,8 +21,6 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'dayspan-vuetify/dist/lib/dayspan-vuetify.min.css'
 
 // components
-import ListCards from './components/shared/list_cards'
-import GridCards from './components/shared/grid_cards'
 import AutoSizeText from './components/shared/autosize-text'
 
 window.lsd = lstore.lsd
@@ -83,8 +81,6 @@ Vue.use(DaySpanVuetify, {
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
 // custom components
-Vue.component('list-cards', ListCards)
-Vue.component('grid-cards', GridCards)
 Vue.component('autosize-text', AutoSizeText)
 
 /* eslint-disable no-new */
