@@ -5,28 +5,36 @@
     >
     <v-container fluid>
       <v-layout row wrap align-center>
-
-        <v-flex v-for="item in items" key="item.id" style="text-align: center">
+        <v-flex v-for="item in items" key="item.id" style="text-align: center" ma-3>
+          <v-icon x-large>camera_enhance</v-icon>
+          <!-- 이미지 input  -->
           <div v-if="!item.image">
-            <!-- <v-text-field
-              xs12 sm6 md3
-              value="사진을 넣어주세요"
-              readonly
-              center
-            ></v-text-field> -->
-            <!-- <div style="font-size: 21px">
-              사진을 넣어주세요
-            </div> -->
-            <!-- <br />
-            <v-divider></v-divider>
-            <br /> -->
             <input type="file" @change="onFileChange(item, $event)">
           </div>
-
+          <!-- 이미지 캔버스 -->
           <div v-else style="text-align: center">
-            <img :src="item.image" />
+            <img id="frame" :src="item.image" />
             <v-btn outline color="teal" @click="removeImage(item)">Remove image</v-btn>
           </div>
+        </v-flex>
+
+        <v-flex ma-3 style="text-align: center">
+          <canvas id="snapshot" style="border:1px solid #BBB;"
+            v-insert-message="exampleContent">
+            </canvas>
+
+            <v-text-field
+              v-for="num in numOfText"
+              :key = "num.id"
+              v-model="exampleContent[num-1]"
+              label= "입력 값"
+              solo
+            ></v-text-field>
+
+            <v-btn @click="numOfText += 1">속성 추가</v-btn>
+            <v-btn @click="drawCanvas">그리기</v-btn>
+            <span>{{ numOfText }}</span>
+
         </v-flex>
 
       </v-layout>
@@ -47,9 +55,23 @@ export default {
     isList: false,
     items: [
       {image: false}
-    ]
+    ],
+    exampleContent: [],
+    numOfText: 1,
+    location_x: 10,
+    location_y: 50
   }),
-  components: {
+  directives: {
+    insertMessage: function (canvasElement, binding) {
+      var ctx = canvasElement.getContext('2d')
+      ctx.clearRect(0, 0, 720, 480)
+      ctx.fillStyle = 'black'
+      ctx.font = '20px Nanum Gothic'
+
+      for (var i = 0; i < 3; i++) {
+        ctx.fillText(binding.value[i], 10, 50 + i * 25)
+      }
+    }
   },
   methods: {
     onFileChange (item, e) {
@@ -67,6 +89,12 @@ export default {
     },
     removeImage: function (item) {
       item.image = false
+    },
+    drawCanvas: function () {
+      var frame = document.getElementById('frame')
+      var snapshotCanvas = document.getElementById('snapshot')
+      var ctx = snapshotCanvas.getContext('2d')
+      ctx.drawImage(frame, 0, 0, 720, 480)
     }
   },
   computed: {
