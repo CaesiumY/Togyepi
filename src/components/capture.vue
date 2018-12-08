@@ -79,6 +79,7 @@
               solo xs6
             ></v-text-field>
 
+            <!-- 날짜 선택기 -->
             <v-menu
               :close-on-content-click="false"
               v-model="menu2"
@@ -92,23 +93,23 @@
               <v-text-field
                 slot="activator"
                 v-model="date"
-                label="Picker without buttons"
+                label="날짜를 선택해주세요"
                 prepend-icon="event"
                 readonly
               ></v-text-field>
               <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
             </v-menu>
 
-            <v-btn color="primary" @click="numOfText += 1">
+            <v-btn color="primary lighten-1" @click="numOfText += 1">
               추가
               <v-icon right dark>add</v-icon>
             </v-btn>
-            <v-btn color="error" @click="removeText">
+            <v-btn color="error lighten-1" @click="removeText">
               빼기
               <v-icon right dark>remove</v-icon>
             </v-btn>
             <v-btn
-            outline large dark color="blue-grey"
+            outline large dark color="blue-grey lighten-1"
             style="font-size: 15px"
             @click="drawCanvas"
             round
