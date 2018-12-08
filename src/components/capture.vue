@@ -5,6 +5,33 @@
     >
     <v-container fluid>
       <v-layout row wrap align-center>
+
+        <!-- alert를 활용한 현재 위치 호출 -->
+         <v-alert
+             v-model="alert"
+             dismissible
+             color="teal lighten-2"
+             transition="scale-transition"
+             icon="info"
+           >
+           현재 위도는: <p id='startLat'></p> 현재 경도는: <p id='startLon'></p>
+         </v-alert>
+         <v-flex xs12 sm6 style="text-align: center">
+           <!-- alert 호출 버튼 -->
+           <v-btn
+             v-if="!alert"
+             color="teal"
+             dark
+             outline
+             round
+             large
+             @click="dialog2 = true"
+           >
+             내 위치 받아오기
+             <v-icon right>my_location</v-icon>
+           </v-btn>
+         </v-flex>
+
         <v-flex v-for="item in items" key="item.id" style="text-align: center" xs12 sm6 ma-3>
           <!-- 이미지 input  -->
           <div v-if="!item.image">
@@ -22,34 +49,6 @@
               </v-btn>
               <input style="display:none" type="file" ref="fileInput" accept="image/*" capture="camera" id="camera" @change="onFileChange(item, $event)">
           </div>
-
-          <!-- alert를 활용한 현재 위치 호출 -->
-          <div>
-           <v-alert
-             v-model="alert"
-             dismissible
-             color="teal lighten-2"
-             transition="scale-transition"
-             icon="info"
-           >
-           현재 위도는: <p id='startLat'></p> 현재 경도는: <p id='startLon'></p>
-           </v-alert>
-         </div>
-
-         <!-- alert 호출 버튼 -->
-         <v-btn
-           v-if="!alert"
-           color="teal"
-           dark
-           outline
-           round
-           large
-           @click="dialog2 = true"
-         >
-           내 위치 받아오기
-           <v-icon right>my_location</v-icon>
-         </v-btn>
-
           <!-- 이미지 캔버스 -->
           <div v-else style="text-align: center">
             <img style="display:none" id="frame" :src="item.image" />
@@ -65,12 +64,13 @@
           </v-btn>
           </div>
         </v-flex>
-        <v-divider></v-divider>
+        <!-- <v-divider></v-divider> -->
 
         <v-flex xs12 sm6 ma-3 style="text-align: center">
           <canvas id="snapshot" width=295 height=300 style="border:1px solid #BBB;">
             </canvas>
             <v-spacer></v-spacer>
+            <!-- 입력 텍스트 필드 -->
             <v-text-field
               v-for="num in numOfText"
               :key = "num.id"
@@ -78,6 +78,27 @@
               label= "입력 값"
               solo xs6
             ></v-text-field>
+
+            <v-menu
+              :close-on-content-click="false"
+              v-model="menu2"
+              :nudge-right="40"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+            >
+              <v-text-field
+                slot="activator"
+                v-model="date"
+                label="Picker without buttons"
+                prepend-icon="event"
+                readonly
+              ></v-text-field>
+              <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+            </v-menu>
+
             <v-btn color="primary" @click="numOfText += 1">
               추가
               <v-icon right dark>add</v-icon>
@@ -179,7 +200,9 @@ export default {
     dialog2: false,
     currentLat: '0',
     currentLon: '0',
-    alert: false
+    alert: false,
+    date: new Date().toISOString().substr(0, 10),
+    menu2: false
   }),
   methods: {
     getLocation () {
@@ -244,19 +267,18 @@ export default {
       var ctx = snapshotCanvas.getContext('2d')
       ctx.clearRect(0, 0, snapshotCanvas.width, snapshotCanvas.height)
 
-      ctx.font = '20px Nanum Gothic extra-bold'
+      ctx.font = '14px Nanum Gothic extra-bold'
       ctx.fillStyle = 'white'
       ctx.lineWidth = '0.5'
       ctx.drawImage(frame, 0, 0, snapshotCanvas.width, snapshotCanvas.height)
-      // ctx.fillRect(0, 0, 150, 100)
       for (var i = 0; i < this.exampleContent.length; i++) {
-        ctx.fillStyle = 'white'
-        ctx.fillRect(0, 0, this.exampleContent[i].length * 10 + 50, 40 + i * 20)
+        // ctx.fillStyle = 'white'
+        ctx.fillRect(0, 0, this.exampleContent[i].length * 6 + 65, 40 + i * 19)
       }
+      ctx.fillStyle = 'black'
+      ctx.fillText(this.date, 5, 15)
       for (var j = 0; j < this.exampleContent.length; j++) {
-        ctx.fillStyle = 'black'
-        ctx.fillText(this.exampleContent[j], 10, 25 + j * 20)
-        // ctx.strokeText(this.exampleContent[i], 10, 25 + i * 20)
+        ctx.fillText(this.exampleContent[j], 5, 33 + j * 20)
       }
     }
   },
