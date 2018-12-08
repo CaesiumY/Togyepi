@@ -49,7 +49,7 @@
               </v-btn>
               <input style="display:none" type="file" ref="fileInput" accept="image/*" capture="camera" id="camera" @change="onFileChange(item, $event)">
           </div>
-          <!-- 이미지 캔버스 -->
+          <!-- 이미지 -->
           <div v-else style="text-align: center">
             <img style="display:none" id="frame" :src="item.image" />
             <v-btn color="teal lighten-2"
@@ -64,10 +64,24 @@
           </v-btn>
           </div>
         </v-flex>
-        <!-- <v-divider></v-divider> -->
 
-        <v-flex xs12 sm6 ma-3 style="text-align: center">
-          <canvas id="snapshot" width=295 height=300 style="border:1px solid #BBB;">
+        <!-- 캔버스 추가 -->
+        <v-flex
+        xs12 sm6 ma-3
+        style="text-align: center"
+        >
+        <div>
+          화이트 박스 위치 x: {{ location_x }}, y: {{ location_y }}
+        </div>
+          <canvas
+          id="snapshot" width=295 height=300 style="border:1px solid #BBB;"
+          v-touch="{
+            left: () => location_x -= 25,
+            right: () => location_x += 25,
+            up: () => location_y -= 25,
+            down: () => location_y += 25
+          }"
+          >
             </canvas>
             <v-spacer></v-spacer>
             <!-- 입력 텍스트 필드 -->
@@ -274,12 +288,12 @@ export default {
       ctx.drawImage(frame, 0, 0, snapshotCanvas.width, snapshotCanvas.height)
       for (var i = 0; i < this.exampleContent.length; i++) {
         // ctx.fillStyle = 'white'
-        ctx.fillRect(0, 0, this.exampleContent[i].length * 6 + 65, 40 + i * 19)
+        ctx.fillRect(this.location_x, this.location_y, this.exampleContent[i].length * 6 + 65, 40 + i * 19)
       }
       ctx.fillStyle = 'black'
-      ctx.fillText(this.date, 5, 15)
+      ctx.fillText(this.date, this.location_x + 5, this.location_y + 15)
       for (var j = 0; j < this.exampleContent.length; j++) {
-        ctx.fillText(this.exampleContent[j], 5, 33 + j * 20)
+        ctx.fillText(this.exampleContent[j], this.location_x + 5, this.location_y + 33 + j * 20)
       }
     }
   },

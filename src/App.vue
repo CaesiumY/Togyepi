@@ -302,7 +302,7 @@
     },
     methods: {
       toRoute (rname, rparams = {}, query = {}) {
-        this.dialog = true
+        // this.dialog = true
         this.$router.push({name: rname, params: rparams, query: query})
       }
       // 레이아웃 변경 버튼 비활성화
