@@ -74,16 +74,24 @@
           화이트 박스 위치 x: {{ location_x }}, y: {{ location_y }}
         </div>
           <canvas
-          id="snapshot" width=295 height=300 style="border:1px solid #BBB;"
-          v-touch="{
-            left: () => location_x -= 25,
-            right: () => location_x += 25,
-            up: () => location_y -= 25,
-            down: () => location_y += 25
-          }"
-          @touchmove="prevent"
+          id="snapshot" width=295 height=300
+          style="border:1px solid #BBB; display:none"          
           >
-            </canvas>
+          </canvas>
+          <!-- 저장을 위한 이미지 변경 -->
+            <img
+            style="border:1px solid #BBB;"
+            id="canvasImg"
+            alt="Right click to save me!"
+            v-touch="{
+              left: () => location_x -= 25,
+              right: () => location_x += 25,
+              up: () => location_y -= 25,
+              down: () => location_y += 25
+            }"
+            @touchmove="prevent"
+            >
+
             <v-spacer></v-spacer>
             <!-- 입력 텍스트 필드 -->
             <v-text-field
@@ -115,6 +123,7 @@
               <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
             </v-menu>
 
+            <!-- 버튼들 -->
             <v-btn color="primary lighten-1" @click="numOfText += 1">
               추가
               <v-icon right dark>add</v-icon>
@@ -126,12 +135,22 @@
             <v-btn
             outline large dark color="blue-grey lighten-1"
             style="font-size: 15px"
-            @click="drawCanvas"
+            @click="drawCanvas(); saveImg()"
             round
             >
               그리기
               <v-icon right dark>edit</v-icon>
             </v-btn>
+
+            <!-- <v-btn
+            @click="saveImg(this)"
+            outline large dark color="blue-grey lighten-1"
+            style="font-size: 15px"
+            round
+            id="save"
+            >
+            저장
+            </v-btn> -->
 
             <!-- <span>{{ exampleContent }}</span> -->
 
@@ -218,9 +237,21 @@ export default {
     currentLon: '0',
     alert: false,
     date: new Date().toISOString().substr(0, 10),
-    menu2: false
+    menu2: false,
+    myUrl: 'www.naver.com'
   }),
   methods: {
+    test () {
+      console.log('changed')
+    },
+    saveImg (el) {
+      console.log('save')
+      var myCanvas = document.getElementById('snapshot')
+      var img = myCanvas.toDataURL('image/png')
+      document.getElementById('canvasImg').src = img
+      // var w = window.open('new tab', 'image from canvas')
+      // w.document.write('<img src="' + img + '"/>')
+    },
     prevent (event) {
       console.log('scroll disabled')
       event.preventDefault()
@@ -281,6 +312,7 @@ export default {
       var ctx = snapshotCanvas.getContext('2d')
       item.image = false
       ctx.clearRect(0, 0, snapshotCanvas.width, snapshotCanvas.height)
+      document.getElementById('canvasImg').src = '#fff'
     },
     drawCanvas: function () {
       var frame = document.getElementById('frame')
@@ -292,9 +324,9 @@ export default {
       ctx.fillStyle = 'white'
       ctx.lineWidth = '0.5'
       ctx.drawImage(frame, 0, 0, snapshotCanvas.width, snapshotCanvas.height)
+      ctx.fillRect(this.location_x, this.location_y, 85, 20)
       for (var i = 0; i < this.exampleContent.length; i++) {
-        // ctx.fillStyle = 'white'
-        ctx.fillRect(this.location_x, this.location_y, this.exampleContent[i].length * 6 + 65, 40 + i * 19)
+        ctx.fillRect(this.location_x, this.location_y + 19, this.exampleContent[i].length * 6 + 65, 20 + i * 19)
       }
       ctx.fillStyle = 'black'
       ctx.fillText(this.date, this.location_x + 5, this.location_y + 15)

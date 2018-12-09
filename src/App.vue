@@ -93,7 +93,7 @@
     <v-toolbar-side-icon dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
     <v-toolbar-title class="mr-5 align-center" >
       <!-- 툴바 터치시 홈으로 -->
-      <button class="nanum-bold" @click.stop="toRoute('home')"> 토계피 </button>
+      <button class="nanum-bold" @click.stop="toRoute('home')"> 토 계 피 </button>
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
