@@ -74,13 +74,13 @@
           화이트 박스 위치 x: {{ location_x }}, y: {{ location_y }}
         </div>
           <canvas
-          id="snapshot" width=295 height=300
+          id="snapshot" width="295" height="300"
           style="border:1px solid #BBB; display:none"
           >
           </canvas>
           <!-- 저장을 위한 이미지 변경 -->
             <img
-            style="border:1px solid #BBB;"
+            style="border:1px solid #BBB; margin-bottom: 20px"
             id="canvasImg"
             alt="저장을 하자!!"
             v-touch="{
@@ -141,17 +141,6 @@
               그리기
               <v-icon right dark>edit</v-icon>
             </v-btn>
-
-            <!-- <v-btn
-            @click="saveImg(this)"
-            outline large dark color="blue-grey lighten-1"
-            style="font-size: 15px"
-            round
-            id="save"
-            >
-            저장
-            </v-btn> -->
-
             <!-- <span>{{ exampleContent }}</span> -->
 
             <!-- 모달 다이얼로그 창, 값을 더 빼지 못하게 -->
@@ -292,7 +281,6 @@ export default {
     },
     onPickFile () {
       this.$refs.fileInput[0].click()
-      // this.dialog = true
     },
     onFileChange (item, e) {
       var files = e.target.files || e.dataTransfer.files
@@ -318,13 +306,17 @@ export default {
       var frame = document.getElementById('frame')
       var snapshotCanvas = document.getElementById('snapshot')
       var ctx = snapshotCanvas.getContext('2d')
-      ctx.clearRect(0, 0, snapshotCanvas.width, snapshotCanvas.height)
+      ctx.width = window.innerWidth
+      ctx.height = window.innerHeight
 
+      ctx.clearRect(0, 0, snapshotCanvas.width, snapshotCanvas.height)
       ctx.font = '14px Nanum Gothic extra-bold'
       ctx.fillStyle = 'white'
       ctx.lineWidth = '0.5'
+
       ctx.drawImage(frame, 0, 0, snapshotCanvas.width, snapshotCanvas.height)
       ctx.fillRect(this.location_x, this.location_y, 85, 20)
+
       for (var i = 0; i < this.exampleContent.length; i++) {
         ctx.fillRect(this.location_x, this.location_y + 19, this.exampleContent[i].length * 6 + 65, 20 + i * 19)
       }
