@@ -75,14 +75,14 @@
         </div>
           <canvas
           id="snapshot" width=295 height=300
-          style="border:1px solid #BBB; display:none"          
+          style="border:1px solid #BBB; display:none"
           >
           </canvas>
           <!-- 저장을 위한 이미지 변경 -->
             <img
             style="border:1px solid #BBB;"
             id="canvasImg"
-            alt="Right click to save me!"
+            alt="저장을 하자!!"
             v-touch="{
               left: () => location_x -= 25,
               right: () => location_x += 25,
