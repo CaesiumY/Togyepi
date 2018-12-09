@@ -47,7 +47,7 @@
               >
               <v-icon>add_a_photo</v-icon>
               </v-btn>
-              <input style="display:none" type="file" ref="fileInput" accept="image/*" capture="camera" id="camera" @change="onFileChange(item, $event)">
+              <input style="display:none" type="file" ref="fileInput" accept="image/*" @change="onFileChange(item, $event)">
           </div>
           <!-- 이미지 -->
           <div v-else style="text-align: center">
@@ -81,6 +81,7 @@
             up: () => location_y -= 25,
             down: () => location_y += 25
           }"
+          @touchmove="prevent"
           >
             </canvas>
             <v-spacer></v-spacer>
@@ -220,6 +221,11 @@ export default {
     menu2: false
   }),
   methods: {
+    prevent (event) {
+      console.log('scroll disabled')
+      event.preventDefault()
+      event.stopPropagation()
+    },
     getLocation () {
       if (navigator.geolocation) console.log('Geolocation is supported!')
       else console.log('Geolocation is not supported for this Browser/OS.')
