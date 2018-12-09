@@ -74,8 +74,8 @@
           화이트 박스 위치 x: {{ location_x }}, y: {{ location_y }}
         </div>
           <canvas
-          id="snapshot" width="295" height="300"
-          style="border:1px solid #BBB; display:none"
+          id="snapshot" width="295" height="320"
+          style="border:1px solid #BBB; display:none;"
           >
           </canvas>
           <!-- 저장을 위한 이미지 변경 -->
@@ -84,23 +84,15 @@
             id="canvasImg"
             alt="저장을 하자!!"
             v-touch="{
-              left: () => location_x -= 25,
-              right: () => location_x += 25,
-              up: () => location_y -= 25,
-              down: () => location_y += 25
+              left: () => location_x -= 20,
+              right: () => location_x += 20,
+              up: () => location_y -= 20,
+              down: () => location_y += 20
             }"
             @touchmove="prevent"
             >
 
             <v-spacer></v-spacer>
-            <!-- 입력 텍스트 필드 -->
-            <v-text-field
-              v-for="num in numOfText"
-              :key = "num.id"
-              v-model="exampleContent[num-1]"
-              label= "입력 값"
-              solo xs6
-            ></v-text-field>
 
             <!-- 날짜 선택기 -->
             <v-menu
@@ -122,6 +114,15 @@
               ></v-text-field>
               <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
             </v-menu>
+
+            <!-- 입력 텍스트 필드 -->
+            <v-text-field
+              v-for="num in numOfText"
+              :key = "num.id"
+              v-model="exampleContent[num-1]"
+              label= "입력 값"
+              solo xs12 sm6
+            ></v-text-field>
 
             <!-- 버튼들 -->
             <v-btn color="primary lighten-1" @click="numOfText += 1">
@@ -306,8 +307,9 @@ export default {
       var frame = document.getElementById('frame')
       var snapshotCanvas = document.getElementById('snapshot')
       var ctx = snapshotCanvas.getContext('2d')
-      ctx.width = window.innerWidth
-      ctx.height = window.innerHeight
+
+      // snapshotCanvas.width = window.innerWidth * 7 / 10
+      // snapshotCanvas.height = window.innerHeight * 7 / 10
 
       ctx.clearRect(0, 0, snapshotCanvas.width, snapshotCanvas.height)
       ctx.font = '14px Nanum Gothic extra-bold'
