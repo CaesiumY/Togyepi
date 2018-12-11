@@ -76,7 +76,7 @@
       <v-list-tile-content>
         <v-list-tile-title>
           <v-tooltip bottom>
-            <a slot="activator" href="https://github.com/CaesiumY/Togyepi" target="_blank">
+            <a slot="activator" href="https://github.com/CaesiumY/Togyepi" target="_blank" rel="noopener">
               Copyright by CS production<!-- {{ year }} --></a>
             <span>클릭시 github 페이지로 연결됩니다</span>
           </v-tooltip>
