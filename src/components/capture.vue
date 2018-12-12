@@ -77,7 +77,7 @@
           화이트 박스 위치 x: {{ location_x }}, y: {{ location_y }}
         </div>
           <canvas
-          id="snapshot" width="295" height="320"
+          id="snapshot" width="1024" height="768"
           style="border:1px solid #BBB; display:none;"
           >
           </canvas>
@@ -262,8 +262,6 @@ export default {
       var myCanvas = document.getElementById('snapshot')
       var img = myCanvas.toDataURL('image/png')
       document.getElementById('canvasImg').src = img
-      // var w = window.open('new tab', 'image from canvas')
-      // w.document.write('<img src="' + img + '"/>')
     },
     prevent (event) {
       console.log('scroll disabled')
