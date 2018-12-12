@@ -2,6 +2,7 @@
   <v-app
     id="inspire"
     style="background-color: #ffffff !important;"
+    v-cloak
   >
   <!-- 앱셸 모델을 위한 drawer 추가 -->
     <v-navigation-drawer

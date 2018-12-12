@@ -2,6 +2,7 @@
     <v-app
       id="inspire"
       style="background-color: #ffffff !important;"
+      v-cloak
     >
     <v-container fluid>
       <v-layout row wrap align-center>
