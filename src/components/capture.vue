@@ -203,6 +203,7 @@
           <!-- 그리기 다이얼로그 창 -->
           <v-dialog
             v-model="dialog_draw"
+            max-width="300"
           >
           <v-card>
               <v-card-text class="headline">그리기 버튼 터치!</v-card-text>
@@ -211,7 +212,7 @@
                 <v-btn
                   color="green darken-1"
                   flat="flat"
-                  @click="dialog_draw = false"
+                  @click="dialog_draw = false; drawCanvas(); saveImg()"
                 >
                   바로!
                 </v-btn>
@@ -272,23 +273,19 @@ export default {
       if (navigator.geolocation) console.log('Geolocation is supported!')
       else console.log('Geolocation is not supported for this Browser/OS.')
       var startPos
+      var myLat
 
       var geoSuccess = function (position) {
         startPos = position
         // startPos.coords.accuracy = 100
         console.log(startPos)
-        // this.currentLat = startPos.coords.latitude
-        // this.currentLon = startPos.coords.longitude
         document.getElementById('startLat').innerHTML = startPos.coords.latitude
         document.getElementById('startLon').innerHTML = startPos.coords.longitude
+        myLat = startPos.coords.latitude
+        console.log(myLat)
       }
       var geoError = function (error) {
         console.log('Error occurred. Error code: ' + error.code)
-        // error.code can be:
-        //   0: unknown error
-        //   1: permission denied
-        //   2: position unavailable (error response from location provider)
-        //   3: timed out
         if (error.code === 0) document.getElementById('startLat').innerHTML = '알 수 없는 에러'
         if (error.code === 1) document.getElementById('startLat').innerHTML = '권한 얻을 수 없음'
         if (error.code === 2) document.getElementById('startLat').innerHTML = '위치 제공 비활성화'
@@ -296,7 +293,6 @@ export default {
       }
       navigator.geolocation.getCurrentPosition(geoSuccess, geoError)
       this.alert = true
-      this.exampleContent[0] = '현재 위도는 ' + this.currentLat
     },
     removeText () {
       this.numOfText -= 1
