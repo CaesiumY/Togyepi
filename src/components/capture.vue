@@ -273,7 +273,6 @@ export default {
       if (navigator.geolocation) console.log('Geolocation is supported!')
       else console.log('Geolocation is not supported for this Browser/OS.')
       var startPos
-      var myLat
 
       var geoSuccess = function (position) {
         startPos = position
@@ -281,8 +280,6 @@ export default {
         console.log(startPos)
         document.getElementById('startLat').innerHTML = startPos.coords.latitude
         document.getElementById('startLon').innerHTML = startPos.coords.longitude
-        myLat = startPos.coords.latitude
-        console.log(myLat)
       }
       var geoError = function (error) {
         console.log('Error occurred. Error code: ' + error.code)
