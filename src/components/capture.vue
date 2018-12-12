@@ -199,6 +199,25 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
+          <!-- 그리기 다이얼로그 창 -->
+          <v-dialog
+            v-model="dialog_draw"
+          >
+          <v-card>
+              <v-card-text class="headline">그리기 버튼 터치!</v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="green darken-1"
+                  flat="flat"
+                  @click="dialog_draw = false"
+                >
+                  바로!
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-flex>
       </v-layout>
     </v-container>
@@ -230,7 +249,7 @@ export default {
     alert: false,
     date: new Date().toISOString().substr(0, 10),
     menu2: false,
-    myUrl: 'www.naver.com'
+    dialog_draw: false
   }),
   methods: {
     test (e) {
@@ -289,6 +308,7 @@ export default {
       var files = e.target.files || e.dataTransfer.files
       if (!files.length) return
       this.createImage(item, files[0])
+      this.dialog_draw = true
     },
     createImage (item, file) {
       // var image = new Image()
