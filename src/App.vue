@@ -83,6 +83,21 @@
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
+
+    <v-list-tile >
+      <v-list-tile-action>
+        <v-icon>mail_outline</v-icon>
+      </v-list-tile-action>
+      <v-list-tile-content>
+        <v-list-tile-title>
+          <v-tooltip bottom>
+            <a slot="activator" href="mailto:mn0658@likelion.org" target="_blank" rel="noopener">
+              mn0658@likelion.org<!-- {{ year }} --></a>
+            <span>문의는 이곳으로 주세요!</span>
+          </v-tooltip>
+        </v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
     </v-list>
   </v-navigation-drawer>
 
