@@ -32,6 +32,8 @@
            </v-btn>
          </v-flex>
 
+         <!-- <v-btn @click="test">here</v-btn> -->
+
         <v-flex v-for="item in items" key="item.id" style="text-align: center" xs12 sm6 ma-3>
           <!-- 이미지 input  -->
           <div v-if="!item.image">
@@ -231,7 +233,7 @@ export default {
     myUrl: 'www.naver.com'
   }),
   methods: {
-    test () {
+    test (e) {
       console.log('changed')
     },
     saveImg (el) {
@@ -320,7 +322,7 @@ export default {
       ctx.fillRect(this.location_x, this.location_y, 85, 20)
 
       for (var i = 0; i < this.exampleContent.length; i++) {
-        ctx.fillRect(this.location_x, this.location_y + 19, this.exampleContent[i].length * 6 + 65, 20 + i * 19)
+        ctx.fillRect(this.location_x, this.location_y + 19, this.exampleContent[i].length * 9 + 65, 20 + i * 19)
       }
       ctx.fillStyle = 'black'
       ctx.fillText(this.date, this.location_x + 5, this.location_y + 15)
