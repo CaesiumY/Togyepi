@@ -35,7 +35,7 @@
 
          <!-- <v-btn @click="test">here</v-btn> -->
 
-        <v-flex v-for="item in items" key="item.id" style="text-align: center" xs12 sm6 ma-3>
+        <v-flex v-for="item in items" v-bind:key="item.id" style="text-align: center" xs12 sm6 ma-3>
           <!-- 이미지 input  -->
           <div v-if="!item.image">
               <!-- <v-icon x-large>add_a_photo</v-icon> -->

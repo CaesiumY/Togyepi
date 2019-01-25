@@ -241,32 +241,5 @@ export default {
 
 @import url('https://fonts.googleapis.com/css?family=Archivo')
 
-
-.article {
-  /*font-family: 'Archivo', sans-serif, Helvetica;*/
-  list-style-type: none;
-  font-size: 18px !important;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.title-font {
-  /*Google fonts: Archivo*/
-  font-family: 'Archivo', sans-serif, Helvetica;
-  font-size: 16px !important;
-  font-weight: 400;
-  cursor: pointer;
-  color: #616161;
-  line-height: 1.8;
-}
-
-.content-font {
-  /*Google fonts: Work Sans*/
-}
-
-.note-font {
-  /*Google fonts: playfair display*/
-}
-
 </style>
 `
