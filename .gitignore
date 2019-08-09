@@ -10,7 +10,7 @@ yarn-error.log*
 selenium-debug.log
 package-lock.json
 .eslintcache
-.firebase/
+.firebase
 
 # Editor directories and files
 .idea
@@ -19,3 +19,19 @@ package-lock.json
 *.ntvs*
 *.njsproj
 *.sln
+
+
+
+# Created by https://www.gitignore.io/api/firebase
+# Edit at https://www.gitignore.io/?templates=firebase
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+
+# End of https://www.gitignore.io/api/firebase
