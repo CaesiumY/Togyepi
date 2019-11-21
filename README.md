@@ -31,7 +31,24 @@ npm run lint
 ```
 
 # 스크린샷 (iphoneX 기준)
-![1](screenshots/togyepi-csy9617.firebaseapp.com_(iPhone&#32;X).png)
-![2](screenshots/togyepi-csy9617.firebaseapp.com_(iPhone&#32;X)&#32;(1).png)
-![3](screenshots/togyepi-csy9617.firebaseapp.com_(iPhone&#32;X)&#32;(2).png)
-![4](screenshots/togyepi-csy9617.firebaseapp.com_(iPhone&#32;X)&#32;(3).png)
+
+<details>
+    <summary>홈</summary>
+    <img width=400px src="./screenshots/togyepi-csy9617.firebaseapp.com_(iPhone X).png">
+</details>
+
+<details>
+    <summary>네비게이션</summary>
+    <img width=400px src="./screenshots/togyepi-csy9617.firebaseapp.com_(iPhone X) (1).png">
+</details>
+
+<details>
+    <summary>사진</summary>
+    <img width=400px src="./screenshots/togyepi-csy9617.firebaseapp.com_(iPhone X) (2).png">
+</details>
+
+<details>
+    <summary>플랜</summary>
+    <img width=400px src="./screenshots/togyepi-csy9617.firebaseapp.com_(iPhone X) (3).png">
+</details>
+
