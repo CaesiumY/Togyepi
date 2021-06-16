@@ -1,24 +1,5 @@
-# togyepi
+# 토계피 <Togyepi> - 토질 계산 피료해?
 
-## Project setup
-```
-npm install
-```
+## Version 2 is now on developing🔨
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## [Link to version 1](https://github.com/CaesiumY/Togyepi/tree/v1)
