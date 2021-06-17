@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app absolute temporary>
+    <v-navigation-drawer v-model="drawer" app absolute temporary width="300">
+      <a class="d-flex flex-column justify-center align-center my-7">
+        <v-img src="./assets/logo_only.png" width="60%"></v-img>
+        <h2 class="mt-3 text--primary">토 계 피</h2>
+      </a>
+
       <v-divider></v-divider>
 
       <v-list>
@@ -11,7 +16,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>
+              <v-list-item-title class="text-h6">
                 {{ text }}
               </v-list-item-title>
             </v-list-item-content>
@@ -23,9 +28,15 @@
     </v-navigation-drawer>
 
     <v-app-bar app :color="mainColor" dark>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-h5 font-weight-bold">토계피</v-toolbar-title>
+      <v-app-bar-nav-icon class="text-h5" @click="drawer = !drawer">
+      </v-app-bar-nav-icon>
+      <v-toolbar-title class="text-h5 font-weight-bold"
+        >토질 계산 피료해?
+      </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-information</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
