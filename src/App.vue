@@ -78,7 +78,7 @@ export default {
     items: [
       ["mdi-calculator", "계산", ""],
       ["mdi-camera", "사진", "photo"],
-      ["mdi-notebook", "플랜", "plans"],
+      ["mdi-notebook", "플랜", "plan"],
     ],
     selected: 0,
   }),
@@ -88,6 +88,7 @@ export default {
       if (this.$route.path.slice(1) === route) return;
 
       this.$router.push(`/${route}`);
+      this.setSelectedPathIndex();
     },
     setSelectedPathIndex() {
       const path = this.$route.path.slice(1);
