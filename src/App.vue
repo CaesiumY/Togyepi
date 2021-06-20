@@ -1,16 +1,31 @@
 <template>
   <v-app>
     <v-navigation-drawer v-model="drawer" app absolute temporary width="300">
-      <a class="d-flex flex-column justify-center align-center my-7">
+      <router-link
+        to="/"
+        class="
+          d-flex
+          flex-column
+          justify-center
+          align-center
+          my-7
+          text-decoration-none
+        "
+      >
         <v-img src="./assets/logo_only.png" width="60%"></v-img>
         <h2 class="mt-3 text--primary">토 계 피</h2>
-      </a>
+      </router-link>
 
       <v-divider></v-divider>
 
       <v-list>
         <v-list-item-group v-model="selected" :color="mainColor">
-          <v-list-item v-for="([icon, text], i) in items" :key="i" link>
+          <v-list-item
+            v-for="([icon, text, route], i) in items"
+            :key="i"
+            link
+            @click="pushRouterLink(route)"
+          >
             <v-list-item-icon>
               <v-icon>{{ icon }}</v-icon>
             </v-list-item-icon>
@@ -30,9 +45,15 @@
     <v-app-bar app :color="mainColor" dark>
       <v-app-bar-nav-icon class="text-h5" @click="drawer = !drawer">
       </v-app-bar-nav-icon>
-      <v-toolbar-title class="text-h5 font-weight-bold"
-        >토질 계산 피료해?
+
+      <v-toolbar-title
+        class="text-h5 font-weight-bold"
+        @click="pushRouterLink('')"
+        style="cursor: pointer"
+      >
+        토질 계산 피료해?
       </v-toolbar-title>
+
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>mdi-information</v-icon>
@@ -55,11 +76,29 @@ export default {
     mainColor: mainColor,
     drawer: false,
     items: [
-      ["mdi-calculator", "계산"],
-      ["mdi-camera", "사진"],
-      ["mdi-notebook", "플랜"],
+      ["mdi-calculator", "계산", ""],
+      ["mdi-camera", "사진", "photo"],
+      ["mdi-notebook", "플랜", "plans"],
     ],
     selected: 0,
   }),
+
+  methods: {
+    pushRouterLink(route) {
+      if (this.$route.path.slice(1) === route) return;
+
+      this.$router.push(`/${route}`);
+    },
+    setSelectedPathIndex() {
+      const path = this.$route.path.slice(1);
+      const pathIndex = this.items.findIndex((v) => v[2] === path);
+
+      this.selected = pathIndex;
+    },
+  },
+
+  mounted() {
+    this.setSelectedPathIndex();
+  },
 };
 </script>
