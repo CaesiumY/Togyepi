@@ -13,15 +13,31 @@
           계산 가이드
         </v-card-title>
 
-        <v-card-text class="pa-4">
-          CEC // 1N- Cacl2 치환침출법 계산 <br />
-          (<strong>a</strong> = 시료 적정에 소요된 황산 ml) <br />
-          (<strong>b</strong> = Blank 적정에 소요된 황산 ml) <br />
-          (황산 적정용액 규정농도 : 0.05) <br />
-          (토양시료 무게 : 5g) <br />
-          (단위 환산인자 cmol/kg(=me/100g) : 100g) <br />
-
-          <v-divider></v-divider>
+        <v-card-text>
+          <div v-for="item in this.formula" :key="item.id">
+            <section class="my-4">
+              <div>
+                <h4 class="text-h6">
+                  {{ item.name }} : {{ item.description }}
+                </h4>
+              </div>
+              <div class="my-3">
+                <p
+                  class="text-body-1"
+                  v-for="(param, key) in item.params"
+                  :key="key"
+                >
+                  <strong>{{ key }}</strong> : {{ param }}
+                </p>
+              </div>
+              <div>
+                <span v-for="(rule, index) in item.rules" :key="index">
+                  {{ rule }} <br />
+                </span>
+              </div>
+            </section>
+            <v-divider></v-divider>
+          </div>
 
           Microwave // 중금속 <br />
           (<strong>T</strong> = 시료측정치 값) <br />
@@ -151,10 +167,12 @@
 </template>
 
 <script>
+import formula from "../utils/calculatingFormula";
 export default {
   data: () => {
     return {
       dialog: false,
+      formula: formula,
     };
   },
 };
