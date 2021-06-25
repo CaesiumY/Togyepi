@@ -13,7 +13,7 @@
           계산 가이드
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="pb-0">
           <div v-for="item in this.formula" :key="item.id">
             <section class="my-4">
               <div>
