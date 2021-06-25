@@ -30,11 +30,11 @@
                   <strong>{{ key }}</strong> : {{ param }}
                 </p>
               </div>
-              <div>
-                <span v-for="(rule, index) in item.rules" :key="index">
+              <ul>
+                <li v-for="(rule, index) in item.rules" :key="index">
                   {{ rule }} <br />
-                </span>
-              </div>
+                </li>
+              </ul>
             </section>
             <v-divider></v-divider>
           </div>

@@ -175,7 +175,7 @@ const ammoniaNitrogenIndophenolBlueWetsoil = {
 };
 
 const nitrateNitrogenBrucineDrysoil = {
-  id: 10,
+  id: 12,
   name: "Nitrate Nitrogen Brucine Drysoil",
   description: "질산태 질소(NO3-N) Brucine - 비색법(건토)",
   params: {
@@ -189,7 +189,7 @@ const nitrateNitrogenBrucineDrysoil = {
 };
 
 const nitrateNitrogenBrucineWetsoil = {
-  id: 11,
+  id: 13,
   name: "Nitrate Nitrogen Brucine Wetsoil",
   description: "질산태 질소(NO3-N) Brucine - 비색법(습토)",
   params: {
