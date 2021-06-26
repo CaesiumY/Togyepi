@@ -3,7 +3,7 @@
     <v-col>
       <v-sheet height="64">
         <v-toolbar flat>
-          <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
+          <v-btn text small color="grey darken-2" @click="setToday">
             Today
           </v-btn>
           <v-btn fab text small color="grey darken-2" @click="prev">
@@ -12,8 +12,8 @@
           <v-btn fab text small color="grey darken-2" @click="next">
             <v-icon small> mdi-chevron-right </v-icon>
           </v-btn>
-          <v-toolbar-title v-if="$refs.calendar">
-            {{ $refs.calendar.title }}
+          <v-toolbar-title>
+            {{ this.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-menu bottom right>
@@ -51,7 +51,6 @@
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
-          @change="updateRange"
         ></v-calendar>
         <v-menu
           v-model="selectedOpen"
@@ -122,9 +121,11 @@ export default {
       "Conference",
       "Party",
     ],
+    title: "",
   }),
   mounted() {
     this.$refs.calendar.checkChange();
+    this.title = this.$refs.calendar.title.split(" ").reverse().join("년 ");
   },
   methods: {
     viewDay({ date }) {
@@ -161,7 +162,7 @@ export default {
 
       nativeEvent.stopPropagation();
     },
-    updateRange() {},
+
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
