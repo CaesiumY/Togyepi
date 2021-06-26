@@ -12,7 +12,11 @@
           text-decoration-none
         "
       >
-        <v-img src="@/assets/logo_only.png" width="60%"></v-img>
+        <v-img
+          lazy-src="@/assets/logo_only.png"
+          src="@/assets/logo_only.png"
+          width="60%"
+        ></v-img>
         <h2 class="mt-3 text--primary">토 계 피</h2>
       </router-link>
 
