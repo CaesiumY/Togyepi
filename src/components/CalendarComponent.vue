@@ -88,6 +88,8 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   data: () => ({
     focus: "",
@@ -111,21 +113,13 @@ export default {
       "orange",
       "grey darken-1",
     ],
-    names: [
-      "Meeting",
-      "Holiday",
-      "PTO",
-      "Travel",
-      "Event",
-      "Birthday",
-      "Conference",
-      "Party",
-    ],
     title: "",
   }),
   mounted() {
     this.$refs.calendar.checkChange();
     this.title = this.$refs.calendar.title.split(" ").reverse().join("년 ");
+
+    this.runTest();
   },
   methods: {
     viewDay({ date }) {
@@ -165,6 +159,18 @@ export default {
 
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
+    },
+
+    runTest() {
+      this.events.push({
+        id: uuidv4(),
+        name: "sample event",
+        start: new Date(),
+        end: new Date(),
+        color: this.colors[this.rnd(0, this.colors.length - 1)],
+        timed: !this.rnd(0, 3) === 0,
+        details: "event description",
+      });
     },
   },
 };
