@@ -51,6 +51,7 @@
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
+          @click:day="this.AddEvent"
         ></v-calendar>
         <v-menu
           v-model="selectedOpen"
@@ -155,6 +156,25 @@ export default {
       }
 
       nativeEvent.stopPropagation();
+    },
+
+    AddEvent(events) {
+      console.log(events);
+      // Events object
+      // date: "2021-06-30"
+      // day: 30
+      // future: false
+      // hasDay: true
+      // hasTime: false
+      // hour: 0
+      // minute: 0
+      // month: 6
+      // past: false
+      // present: true
+      // time: ""
+      // weekday: 3
+      // year: 2021
+      // TODO - 이벤트들 중 필요한 거 골라다가 팝업 띄우며 전달해주기
     },
 
     rnd(a, b) {
