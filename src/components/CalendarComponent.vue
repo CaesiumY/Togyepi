@@ -3,16 +3,24 @@
     <v-col>
       <v-sheet height="64">
         <v-toolbar flat>
-          <v-btn text small color="grey darken-2" @click="setToday">
+          <v-btn
+            fab
+            text
+            x-small
+            color="grey darken-2"
+            class="mr-3"
+            @click="setToday"
+          >
             Today
           </v-btn>
-          <v-btn fab text small color="grey darken-2" @click="prev">
+          <v-btn fab text x-small color="grey darken-2" @click="prev">
             <v-icon small> mdi-chevron-left </v-icon>
           </v-btn>
-          <v-btn fab text small color="grey darken-2" @click="next">
+          <v-btn fab text x-small color="grey darken-2" @click="next">
             <v-icon small> mdi-chevron-right </v-icon>
           </v-btn>
-          <v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-title class="mx-auto">
             {{ this.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
@@ -50,7 +58,7 @@
           :type="type"
           @click:event="showEvent"
           @click:more="viewDay"
-          @click:date="viewDay"
+          @click:date="this.AddEvent"
           @click:day="this.AddEvent"
         ></v-calendar>
         <v-menu
@@ -175,6 +183,7 @@ export default {
       // weekday: 3
       // year: 2021
       // TODO - 이벤트들 중 필요한 거 골라다가 팝업 띄우며 전달해주기
+      this.runTest();
     },
 
     rnd(a, b) {
