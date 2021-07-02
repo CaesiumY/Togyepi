@@ -6,8 +6,8 @@
         :type="type"
         :setType="setType"
         :calendarRef="$refs.calendar"
-        :title="title"
-      ></calendar-header>
+      >
+      </calendar-header>
       <v-sheet>
         <v-calendar
           ref="calendar"
@@ -40,7 +40,6 @@ export default {
   data: () => ({
     focus: "",
     type: "month",
-
     events: [],
     colors: [
       "blue",
@@ -55,10 +54,10 @@ export default {
   }),
   mounted() {
     this.$refs.calendar.checkChange();
-    this.setTitle();
 
     this.runTest();
   },
+
   methods: {
     setType(type) {
       this.type = type;
@@ -73,12 +72,10 @@ export default {
     setToday() {
       this.focus = "";
     },
-    setTitle() {
-      this.title = this.$refs.calendar.title.split(" ").reverse().join("년 ");
-    },
     onClickEvent(e) {
       this.$refs.calendarCard.showEvent(e);
     },
+
     AddEvent(events) {
       console.log(events);
       // Events object
@@ -115,5 +112,6 @@ export default {
       });
     },
   },
+  watch: {},
 };
 </script>

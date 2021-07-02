@@ -19,7 +19,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-toolbar-title class="mx-auto">
-        {{ this.title }}
+        {{ this.getTitle }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu bottom right>
@@ -66,10 +66,6 @@ export default {
     calendarRef: {
       required: true,
     },
-    title: {
-      type: String,
-      required: true,
-    },
   },
   data() {
     return {
@@ -80,6 +76,14 @@ export default {
         "4day": "4 Days",
       },
     };
+  },
+  computed: {
+    getTitle() {
+      return (
+        this.calendarRef &&
+        this.calendarRef.title.split(" ").reverse().join("년 ")
+      );
+    },
   },
   methods: {
     prev() {
