@@ -1,53 +1,13 @@
 <template>
   <v-row class="fill-height ma-1">
     <v-col>
-      <v-sheet height="64">
-        <v-toolbar flat>
-          <v-btn
-            fab
-            text
-            x-small
-            color="grey darken-2"
-            class="mr-3"
-            @click="setToday"
-          >
-            Today
-          </v-btn>
-          <v-btn fab text x-small color="grey darken-2" @click="prev">
-            <v-icon small> mdi-chevron-left </v-icon>
-          </v-btn>
-          <v-btn fab text x-small color="grey darken-2" @click="next">
-            <v-icon small> mdi-chevron-right </v-icon>
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-toolbar-title class="mx-auto">
-            {{ this.title }}
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-menu bottom right>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
-                <span>{{ typeToLabel[type] }}</span>
-                <v-icon right> mdi-menu-down </v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item @click="type = 'day'">
-                <v-list-item-title>Day</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'week'">
-                <v-list-item-title>Week</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'month'">
-                <v-list-item-title>Month</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = '4day'">
-                <v-list-item-title>4 days</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-toolbar>
-      </v-sheet>
+      <calendar-header
+        :setToday="setToday"
+        :type="type"
+        :setType="setType"
+        :calendarRef="$refs.calendar"
+        :title="title"
+      ></calendar-header>
       <v-sheet>
         <v-calendar
           ref="calendar"
@@ -58,8 +18,8 @@
           :type="type"
           @click:event="showEvent"
           @click:more="viewDay"
-          @click:date="this.AddEvent"
-          @click:day="this.AddEvent"
+          @click:date="AddEvent"
+          @click:day="AddEvent"
         ></v-calendar>
         <v-menu
           v-model="selectedOpen"
@@ -98,17 +58,15 @@
 
 <script>
 import { v4 as uuidv4 } from "uuid";
+import CalendarHeader from "./CalendarHeader.vue";
 
 export default {
+  components: {
+    CalendarHeader,
+  },
   data: () => ({
     focus: "",
     type: "month",
-    typeToLabel: {
-      month: "Month",
-      week: "Week",
-      day: "Day",
-      "4day": "4 Days",
-    },
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
@@ -126,11 +84,14 @@ export default {
   }),
   mounted() {
     this.$refs.calendar.checkChange();
-    this.title = this.$refs.calendar.title.split(" ").reverse().join("년 ");
+    this.setTitle();
 
     this.runTest();
   },
   methods: {
+    setType(type) {
+      this.type = type;
+    },
     viewDay({ date }) {
       this.focus = date;
       this.type = "day";
@@ -141,11 +102,8 @@ export default {
     setToday() {
       this.focus = "";
     },
-    prev() {
-      this.$refs.calendar.prev();
-    },
-    next() {
-      this.$refs.calendar.next();
+    setTitle() {
+      this.title = this.$refs.calendar.title.split(" ").reverse().join("년 ");
     },
     showEvent({ nativeEvent, event }) {
       const open = () => {
