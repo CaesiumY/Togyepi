@@ -30,17 +30,12 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item @click="this.setType('day')">
-            <v-list-item-title>Day</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="this.setType('week')">
-            <v-list-item-title>Week</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="this.setType('month')">
-            <v-list-item-title>Month</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="this.setType('4day')">
-            <v-list-item-title>4 days</v-list-item-title>
+          <v-list-item
+            v-for="typeName in calendarType"
+            :key="typeName"
+            @click="() => setType(`${typeName}`)"
+          >
+            <v-list-item-title>{{ typeName.toUpperCase() }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -75,6 +70,7 @@ export default {
         day: "Day",
         "4day": "4 Days",
       },
+      calendarType: ["day", "week", "month", "4day"],
     };
   },
   computed: {
