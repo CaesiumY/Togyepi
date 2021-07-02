@@ -16,41 +16,12 @@
           :events="events"
           :event-color="getEventColor"
           :type="type"
-          @click:event="showEvent"
+          @click:event="onClickEvent"
           @click:more="viewDay"
           @click:date="AddEvent"
           @click:day="AddEvent"
         ></v-calendar>
-        <v-menu
-          v-model="selectedOpen"
-          :close-on-content-click="false"
-          :activator="selectedElement"
-          offset-x
-        >
-          <v-card color="grey lighten-4" min-width="350px" flat>
-            <v-toolbar :color="selectedEvent.color" dark>
-              <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </v-toolbar>
-            <v-card-text>
-              <span v-html="selectedEvent.details"></span>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn text color="secondary" @click="selectedOpen = false">
-                Cancel
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-menu>
+        <calendar-card ref="calendarCard"></calendar-card>
       </v-sheet>
     </v-col>
   </v-row>
@@ -59,17 +30,17 @@
 <script>
 import { v4 as uuidv4 } from "uuid";
 import CalendarHeader from "./CalendarHeader.vue";
+import CalendarCard from "./CalendarCard.vue";
 
 export default {
   components: {
     CalendarHeader,
+    CalendarCard,
   },
   data: () => ({
     focus: "",
     type: "month",
-    selectedEvent: {},
-    selectedElement: null,
-    selectedOpen: false,
+
     events: [],
     colors: [
       "blue",
@@ -105,25 +76,9 @@ export default {
     setTitle() {
       this.title = this.$refs.calendar.title.split(" ").reverse().join("년 ");
     },
-    showEvent({ nativeEvent, event }) {
-      const open = () => {
-        this.selectedEvent = event;
-        this.selectedElement = nativeEvent.target;
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => (this.selectedOpen = true))
-        );
-      };
-
-      if (this.selectedOpen) {
-        this.selectedOpen = false;
-        requestAnimationFrame(() => requestAnimationFrame(() => open()));
-      } else {
-        open();
-      }
-
-      nativeEvent.stopPropagation();
+    onClickEvent(e) {
+      this.$refs.calendarCard.showEvent(e);
     },
-
     AddEvent(events) {
       console.log(events);
       // Events object
