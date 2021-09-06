@@ -1,36 +1,52 @@
 <template>
-  <v-row class="fill-height ma-1">
-    <v-col>
-      <calendar-header
-        :setToday="setToday"
-        :type="type"
-        :setType="setType"
-        :calendarRef="$refs.calendar"
-      >
-      </calendar-header>
-      <v-sheet>
-        <v-calendar
-          ref="calendar"
-          v-model="focus"
-          color="primary"
-          :events="events"
-          :event-color="getEventColor"
+  <section>
+    <v-row class="fill-height ma-1">
+      <v-col>
+        <calendar-header
+          :setToday="setToday"
           :type="type"
-          @click:event="onClickEvent"
-          @click:more="viewDay"
-          @click:date="AddEvent"
-          @click:day="AddEvent"
-        ></v-calendar>
-        <calendar-card ref="calendarCard"></calendar-card>
-      </v-sheet>
-    </v-col>
-  </v-row>
+          :setType="setType"
+          :calendarRef="$refs.calendar"
+        >
+        </calendar-header>
+        <v-sheet>
+          <v-calendar
+            ref="calendar"
+            v-model="focus"
+            color="primary"
+            :events="events"
+            :event-color="getEventColor"
+            :type="type"
+            @click:event="onClickEvent"
+            @click:more="viewDay"
+            @click:date="AddEvent"
+            @click:day="AddEvent"
+          ></v-calendar>
+          <calendar-card ref="calendarCard"></calendar-card>
+        </v-sheet>
+      </v-col>
+    </v-row>
+    <div class="button-container mt-5">
+      <v-btn
+        :color="mainColor"
+        dark
+        absolute
+        top
+        right
+        fab
+        @click="toggleModal"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </div>
+  </section>
 </template>
 
 <script>
 import { v4 as uuidv4 } from "uuid";
 import CalendarHeader from "./CalendarHeader.vue";
 import CalendarCard from "./CalendarCard.vue";
+import { mainColor } from "../constants";
 
 export default {
   components: {
@@ -51,6 +67,8 @@ export default {
       "grey darken-1",
     ],
     title: "",
+    mainColor,
+    isShowModal: false,
   }),
   mounted() {
     this.$refs.calendar.checkChange();
@@ -74,6 +92,10 @@ export default {
     },
     onClickEvent(e) {
       this.$refs.calendarCard.showEvent(e);
+    },
+
+    toggleModal() {
+      this.isShowModal = !this.isShowModal;
     },
 
     AddEvent(events) {
@@ -114,3 +136,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.button-container {
+  position: relative;
+}
+</style>
+;
