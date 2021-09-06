@@ -112,6 +112,5 @@ export default {
       });
     },
   },
-  watch: {},
 };
 </script>
