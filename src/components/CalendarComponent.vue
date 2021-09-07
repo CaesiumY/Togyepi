@@ -19,25 +19,13 @@
             :type="type"
             @click:event="onClickEvent"
             @click:more="viewDay"
-            @click:date="AddEvent"
-            @click:day="AddEvent"
           ></v-calendar>
           <calendar-card ref="calendarCard"></calendar-card>
         </v-sheet>
       </v-col>
     </v-row>
-    <div class="button-container mt-5">
-      <v-btn
-        :color="mainColor"
-        dark
-        absolute
-        top
-        right
-        fab
-        @click="toggleModal"
-      >
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
+    <div class="modal-container mt-5">
+      <calendar-modal :addEvent="addEvent"></calendar-modal>
     </div>
   </section>
 </template>
@@ -46,12 +34,13 @@
 import { v4 as uuidv4 } from "uuid";
 import CalendarHeader from "./CalendarHeader.vue";
 import CalendarCard from "./CalendarCard.vue";
-import { mainColor } from "../constants";
+import CalendarModal from "./CalendarModal.vue";
 
 export default {
   components: {
     CalendarHeader,
     CalendarCard,
+    CalendarModal,
   },
   data: () => ({
     focus: "",
@@ -67,7 +56,6 @@ export default {
       "grey darken-1",
     ],
     title: "",
-    mainColor,
     isShowModal: false,
   }),
   mounted() {
@@ -98,7 +86,7 @@ export default {
       this.isShowModal = !this.isShowModal;
     },
 
-    AddEvent(events) {
+    addEvent(events) {
       console.log(events);
       // Events object
       // date: "2021-06-30"
@@ -138,7 +126,7 @@ export default {
 </script>
 
 <style scoped>
-.button-container {
+.modal-container {
   position: relative;
 }
 </style>
