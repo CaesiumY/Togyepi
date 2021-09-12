@@ -23,84 +23,76 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="일정 이름" required></v-text-field>
+                <v-text-field
+                  v-model="schedule.title"
+                  label="일정 이름*"
+                  prepend-icon="mdi-format-title"
+                  required
+                ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-menu
-                  ref="menu"
-                  v-model="menu2"
+                  v-model="isDatePicker"
                   :close-on-content-click="false"
                   :nudge-right="40"
-                  :return-value.sync="time"
                   transition="scale-transition"
                   offset-y
-                  max-width="290px"
-                  min-width="290px"
+                  min-width="auto"
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                      v-model="time"
-                      label="Picker in menu"
-                      prepend-icon="mdi-clock-time-four-outline"
+                      v-model="schedule.date"
+                      label="날짜*"
+                      prepend-icon="mdi-calendar"
                       readonly
                       v-bind="attrs"
                       v-on="on"
                     ></v-text-field>
                   </template>
-                  <v-time-picker
-                    v-if="menu2"
-                    v-model="time"
-                    full-width
-                    @click:minute="$refs.menu.save(time)"
-                  ></v-time-picker>
+                  <v-date-picker
+                    v-model="schedule.date"
+                    @input="isDatePicker = false"
+                  ></v-date-picker>
                 </v-menu>
               </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-menu
-                  ref="menu"
-                  v-model="menu2"
-                  :close-on-content-click="false"
-                  :nudge-right="40"
-                  :return-value.sync="time"
-                  transition="scale-transition"
-                  offset-y
-                  max-width="290px"
-                  min-width="290px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="time"
-                      label="Picker in menu"
-                      prepend-icon="mdi-clock-time-four-outline"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-time-picker
-                    v-if="menu2"
-                    v-model="time"
-                    full-width
-                    @click:minute="$refs.menu.save(time)"
-                  ></v-time-picker>
-                </v-menu>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-checkbox v-model="isAllday" label="하루종일"></v-checkbox>
-              </v-col>
+
               <v-col cols="12">
-                <v-text-field label="상세 내용" type="text"></v-text-field>
+                <v-text-field
+                  v-model="schedule.details"
+                  label="상세 내용"
+                  type="text"
+                  prepend-icon="mdi-subtitles-outline"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
-                <v-autocomplete :items="colors" label="색">
+                <v-autocomplete
+                  v-model="schedule.color"
+                  :items="colors"
+                  label="색"
+                  chips
+                  item-text="name"
+                  item-value="color"
+                  prepend-icon="mdi-palette"
+                >
+                  <template v-slot:selection="data">
+                    <v-chip
+                      v-bind="data.attrs"
+                      :input-value="data.selected"
+                      @click="data.select"
+                    >
+                      <v-avatar left :color="data.item.color" size="28">
+                      </v-avatar>
+                      {{ data.item.name }}
+                    </v-chip>
+                  </template>
                   <template v-slot:item="data">
                     <template>
                       <v-list-item-avatar>
-                        <v-avatar :color="data.item" size="28"></v-avatar>
+                        <v-avatar :color="data.item.color" size="28"></v-avatar>
                       </v-list-item-avatar>
                       <v-list-item-content>
                         <v-list-item-title
-                          v-html="data.item"
+                          v-html="data.item.name"
                         ></v-list-item-title>
                       </v-list-item-content>
                     </template>
@@ -136,29 +128,41 @@ export default {
     dialog: false,
     mainColor,
     schedule: {
-      name: "",
-      start: "",
-      end: "",
-      color: "",
+      title: "",
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      color: "blue",
       details: "",
     },
     colors: [
-      "blue",
-      "indigo",
-      "deep-purple",
-      "cyan",
-      "green",
-      "orange",
-      "grey darken-1",
+      { name: "파랑", color: "blue" },
+      { name: "빨강", color: "red" },
+      { name: "주황", color: "orange" },
+      { name: "초록", color: "green" },
+      { name: "인디고", color: "indigo" },
+      { name: "딥 퍼플", color: "deep-purple" },
+      { name: "싸이온", color: "cyan" },
+      { name: "회색", color: "grey darken-1" },
     ],
     isAllday: false,
-    menu2: "",
-    time: "",
+    isDatePicker: false,
   }),
   methods: {
     onSubmit() {
+      if (!this.schedule.title) return alert("제목을 입력하세요");
+
+      this.addEvent(this.schedule);
+
       this.dialog = false;
-      this.addEvent();
+      this.schedule = {
+        title: "",
+        date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+          .toISOString()
+          .substr(0, 10),
+        color: "blue",
+        details: "",
+      };
     },
   },
 };
