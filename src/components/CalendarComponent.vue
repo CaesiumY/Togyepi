@@ -35,6 +35,11 @@ import { v4 as uuidv4 } from "uuid";
 import CalendarHeader from "./CalendarHeader.vue";
 import CalendarCard from "./CalendarCard.vue";
 import CalendarModal from "./CalendarModal.vue";
+import {
+  LOCALSTORAGE_EVENT_KEY,
+  loadFromLocalStorage,
+  saveToLocalStorage,
+} from "../utils/localStorage";
 
 export default {
   components: {
@@ -46,22 +51,14 @@ export default {
     focus: "",
     type: "month",
     events: [],
-    colors: [
-      "blue",
-      "indigo",
-      "deep-purple",
-      "cyan",
-      "green",
-      "orange",
-      "grey darken-1",
-    ],
-    title: "",
     isShowModal: false,
   }),
   mounted() {
     this.$refs.calendar.checkChange();
 
-    this.runTest();
+    const data = loadFromLocalStorage(LOCALSTORAGE_EVENT_KEY);
+    console.log(data);
+    if (data) this.events = data;
   },
 
   methods: {
@@ -86,40 +83,19 @@ export default {
       this.isShowModal = !this.isShowModal;
     },
 
-    addEvent(events) {
-      console.log(events);
-      // Events object
-      // date: "2021-06-30"
-      // day: 30
-      // future: false
-      // hasDay: true
-      // hasTime: false
-      // hour: 0
-      // minute: 0
-      // month: 6
-      // past: false
-      // present: true
-      // time: ""
-      // weekday: 3
-      // year: 2021
-      // TODO - 이벤트들 중 필요한 거 골라다가 팝업 띄우며 전달해주기
-      this.runTest();
-    },
+    addEvent(eventData) {
+      const { date, title } = eventData;
 
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a;
-    },
-
-    runTest() {
-      this.events.push({
+      const newEvent = {
+        ...eventData,
         id: uuidv4(),
-        name: "sample event",
-        start: new Date(),
-        end: new Date(),
-        color: this.colors[this.rnd(0, this.colors.length - 1)],
-        timed: !this.rnd(0, 3) === 0,
-        details: "event description",
-      });
+        name: title,
+        start: date,
+        end: date,
+      };
+
+      this.events.push(newEvent);
+      saveToLocalStorage(LOCALSTORAGE_EVENT_KEY, this.events);
     },
   },
 };
