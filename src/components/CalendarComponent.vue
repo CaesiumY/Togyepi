@@ -20,7 +20,10 @@
             @click:event="onClickEvent"
             @click:more="viewDay"
           ></v-calendar>
-          <calendar-card ref="calendarCard"></calendar-card>
+          <calendar-card
+            ref="calendarCard"
+            :removeEvent="removeEvent"
+          ></calendar-card>
         </v-sheet>
       </v-col>
     </v-row>
@@ -55,13 +58,14 @@ export default {
   }),
   mounted() {
     this.$refs.calendar.checkChange();
-
-    const data = loadFromLocalStorage(LOCALSTORAGE_EVENT_KEY);
-    console.log(data);
-    if (data) this.events = data;
+    this.fetchData();
   },
 
   methods: {
+    fetchData() {
+      const data = loadFromLocalStorage(LOCALSTORAGE_EVENT_KEY);
+      if (data) this.events = data;
+    },
     setType(type) {
       this.type = type;
     },
@@ -96,6 +100,15 @@ export default {
 
       this.events.push(newEvent);
       saveToLocalStorage(LOCALSTORAGE_EVENT_KEY, this.events);
+    },
+
+    removeEvent(id) {
+      const eventData = loadFromLocalStorage(LOCALSTORAGE_EVENT_KEY);
+      const seletedItem = eventData.find((item) => item.id == id);
+
+      const nextData = eventData.filter((item) => item.id !== seletedItem.id);
+      saveToLocalStorage(LOCALSTORAGE_EVENT_KEY, nextData);
+      this.fetchData();
     },
   },
 };

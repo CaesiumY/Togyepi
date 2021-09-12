@@ -7,32 +7,27 @@
   >
     <v-card color="grey lighten-4" min-width="350px" flat>
       <v-toolbar :color="selectedEvent.color" dark>
-        <v-btn icon>
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
         <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
+        <v-btn class="mx-1" icon @click="removeSelectedEvent">
+          <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-card-text>
+      <v-card-text v-if="selectedEvent.details">
         <span v-html="selectedEvent.details"></span>
       </v-card-text>
-      <v-card-actions>
-        <v-btn text color="secondary" @click="selectedOpen = false">
-          Cancel
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-menu>
 </template>
 
 <script>
 export default {
+  props: {
+    removeEvent: {
+      type: Function,
+      required: true,
+    },
+  },
   data() {
     return {
       selectedEvent: {},
@@ -58,6 +53,17 @@ export default {
       }
 
       nativeEvent.stopPropagation();
+    },
+
+    removeSelectedEvent() {
+      const isConfirmed = confirm(
+        `${this.selectedEvent.name} 일정을 삭제하시겠습니까?`
+      );
+      if (!isConfirmed) return;
+
+      const { id } = this.selectedEvent;
+      this.removeEvent(id);
+      this.selectedOpen = false;
     },
   },
 };
