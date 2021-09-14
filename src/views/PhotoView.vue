@@ -1,9 +1,15 @@
 <template>
-  <div>Photo</div>
+  <photo-container></photo-container>
 </template>
 
 <script>
-export default {};
+import PhotoContainer from "../components/PhotoContainer.vue";
+
+export default {
+  components: {
+    PhotoContainer,
+  },
+};
 </script>
 
 <style scoped></style>
