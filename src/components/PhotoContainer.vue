@@ -7,6 +7,7 @@
       <v-card ref="form" class="ma-5">
         <v-card-text>
           <v-btn
+            v-if="position.length === 0"
             class="mx-12 my-3 font-weight-bold text-button"
             outlined
             rounded
@@ -15,6 +16,17 @@
             @click="getCurrentPosition"
           >
             <v-icon left> mdi-crosshairs-gps </v-icon> 내 위치 받아오기
+          </v-btn>
+          <v-btn
+            v-else
+            class="mx-12 my-3 font-weight-bold text-button"
+            outlined
+            rounded
+            large
+            color="error"
+            @click="removeCurrentPosition"
+          >
+            <v-icon left> mdi-crosshairs-gps </v-icon> 내 위치 지우기
           </v-btn>
           <v-text-field
             v-if="position"
@@ -99,7 +111,31 @@ export default {
   },
   methods: {
     getCurrentPosition() {
-      this.position = "38";
+      if (!navigator.geolocation)
+        return alert("위치 정보가 지원되지 않는 환경입니다.");
+
+      const geolocationSuccess = (pos) => {
+        const {
+          coords: { latitude, longitude },
+        } = pos;
+
+        this.position = `위도: ${latitude.toFixed(7)} 경도: ${longitude.toFixed(
+          7
+        )}`;
+      };
+      const geolocationError = (err) => {
+        console.error("Error occurred. Error code: " + err.code);
+        alert("위치를 불러오는데 실패했습니다.");
+        this.position = "";
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        geolocationSuccess,
+        geolocationError
+      );
+    },
+    removeCurrentPosition() {
+      this.position = "";
     },
     removeContentOne() {
       this.contents.splice(this.contents.length - 1, 1);
