@@ -1,7 +1,25 @@
 <template>
-  <section class="d-flex flex-column justify-center text-center">
-    <article>
-      <div>canvas position</div>
+  <section class="d-flex flex-column justify-center text-center my-5">
+    <article class="mx-5">
+      <canvas
+        v-if="image.length !== 0"
+        class="my-5"
+        ref="snapshot"
+        style="border: 1px solid #bbb"
+      >
+      </canvas>
+      <v-file-input
+        v-if="image.length === 0"
+        accept="image/png, image/jpeg"
+        prepend-icon="mdi-camera"
+        label="사진을 넣어주세요"
+        show-size
+        @change="setImageInput"
+      ></v-file-input>
+      <v-btn v-else color="error" @click="removeDrawing">
+        <v-icon left> mdi-minus </v-icon>
+        그림 지우기
+      </v-btn>
     </article>
     <section>
       <v-card ref="form" class="ma-5">
@@ -99,6 +117,7 @@ export default {
     position: "",
     date: "",
     contents: [],
+    image: "",
   }),
   computed: {
     form() {
@@ -139,6 +158,17 @@ export default {
     },
     removeContentOne() {
       this.contents.splice(this.contents.length - 1, 1);
+    },
+    setImageInput(item) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        this.image = e.target.result;
+      };
+      reader.readAsDataURL(item);
+    },
+    removeDrawing() {
+      this.image = "";
     },
   },
 };
