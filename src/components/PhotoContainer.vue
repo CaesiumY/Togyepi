@@ -52,6 +52,7 @@
             v-model="position"
             prepend-icon="mdi-map-marker"
             label="현재 위도 경도"
+            readonly
           ></v-text-field>
 
           <v-menu
@@ -109,6 +110,7 @@
         large
         color="primary"
         @click="drawCanvas"
+        :disabled="!image"
       >
         <v-icon left> mdi-pencil </v-icon> 그리기
       </v-btn>
@@ -182,8 +184,14 @@ export default {
     },
 
     drawCanvas() {
+      if (
+        (!this.position && !this.date && this.contents.length === 0) ||
+        !this.image
+      )
+        return;
+
       const canvas = this.$refs.snapshot;
-      const image = this.$refs.preview;
+      const previewImage = this.$refs.preview;
       const ctx = canvas.getContext("2d");
 
       const imageSrc = new Image();
@@ -191,22 +199,43 @@ export default {
       canvas.width = imageSrc.width;
       canvas.height = imageSrc.height;
 
+      const fontSize = 75;
+      const margin = fontSize / 5;
+      const startLine = this.date ? fontSize * 1.5 : 0;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
       ctx.fillStyle = "white";
-      ctx.lineWidth = "0.5";
-      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = "1";
+      ctx.font = `${fontSize}px roboto`;
 
-      ctx.fillRect(0, 0, 85, 20);
-      for (var i = 0; i < this.contents.length; i++) {
-        ctx.fillRect(0, 0 + 19, this.contents[i].length * 9 + 65, 20 + i * 19);
+      ctx.drawImage(imageSrc, 0, 0, canvas.width, canvas.height);
+
+      if (this.date)
+        ctx.fillRect(
+          0,
+          0,
+          ctx.measureText(this.date).width + margin,
+          startLine
+        );
+
+      for (let i = 0; i < this.contents.length; i++) {
+        if (this.contents[i].length === 0) continue;
+        ctx.fillRect(
+          0,
+          startLine + i * fontSize,
+          ctx.measureText(this.contents[i]).width + margin,
+          fontSize * 1.2
+        );
       }
+
       ctx.fillStyle = "black";
-      ctx.fillText(this.date, 0 + 5, 0 + 15);
-      for (var j = 0; j < this.contents.length; j++) {
-        ctx.fillText(this.contents[j], 0 + 5, 0 + 33 + j * 20);
+      ctx.fillText(`${this.date}`, 5, fontSize);
+      for (let j = 0; j < this.contents.length; j++) {
+        ctx.fillText(this.contents[j], 5, (j + 1) * fontSize + startLine);
       }
 
-      this.image = canvas.toDataURL("image/png");
+      previewImage.src = canvas.toDataURL("image/png");
       console.log(ctx);
     },
   },
