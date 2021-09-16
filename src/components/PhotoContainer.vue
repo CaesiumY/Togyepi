@@ -205,7 +205,7 @@ export default {
 
       const fontSize = 75;
       const margin = fontSize / 5;
-      const startLine = this.date ? fontSize * 1.5 : 0;
+      const startLine = this.date || this.position ? fontSize * 1.5 : 0;
 
       ctx.fillStyle = "white";
       ctx.lineWidth = "1";
@@ -213,13 +213,13 @@ export default {
 
       ctx.drawImage(imageSrc, 0, 0, canvas.width, canvas.height);
 
-      if (this.date)
-        ctx.fillRect(
-          0,
-          0,
-          ctx.measureText(this.date).width + margin,
-          startLine
-        );
+      if (this.date || this.position) {
+        const dateWidth = Math.round(ctx.measureText(this.date).width) + margin;
+        const positionWidth =
+          Math.round(ctx.measureText(this.position).width) + margin;
+
+        ctx.fillRect(0, 0, dateWidth + positionWidth, startLine);
+      }
 
       for (let i = 0; i < this.contents.length; i++) {
         if (this.contents[i].length === 0) continue;
@@ -232,19 +232,19 @@ export default {
       }
 
       ctx.fillStyle = "black";
-      ctx.fillText(`${this.date}`, 5, fontSize);
+      ctx.fillText(`${this.date} ${this.position}`, 5, fontSize);
       for (let j = 0; j < this.contents.length; j++) {
         ctx.fillText(this.contents[j], 5, (j + 1) * fontSize + startLine);
       }
 
+      // FIXME new Image()로 불러온 데이터의 width, height 가져오기가 늦어지면 간헐적으로 오류 발생
       const dataUrl = canvas.toDataURL("image/png");
-
-      if (dataUrl === "data:,") {
-        alert("렌더링에 실패했습니다");
+      const errorCode = "data:,";
+      if (dataUrl === errorCode) {
+        alert("다시 한 번 시도해주세요.");
       } else {
         previewImage.src = dataUrl;
       }
-
       this.isLoading = false;
     },
   },
