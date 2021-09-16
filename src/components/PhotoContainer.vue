@@ -71,6 +71,7 @@
                 readonly
                 v-bind="attrs"
                 v-on="on"
+                clearable
               ></v-text-field>
             </template>
             <v-date-picker
@@ -193,25 +194,23 @@ export default {
         return;
 
       this.isLoading = true;
-
       const canvas = this.$refs.snapshot;
-      const previewImage = this.$refs.preview;
       const ctx = canvas.getContext("2d");
 
       // NOTE new Image()로 불러온 데이터의 width, height 가져오기가 늦어지면 간헐적으로 오류 발생 -> 일단 Promise로 해결되는지 지켜보기
-      const promised = new Promise((resolve) => {
+      const getPromisedImage = new Promise((resolve) => {
         const imageSrc = new Image();
         imageSrc.src = this.image;
 
         resolve(imageSrc);
       });
 
-      const promisedImage = await promised;
+      const promisedImage = await getPromisedImage;
       canvas.width = promisedImage.width;
       canvas.height = promisedImage.height;
 
-      const fontSize = 75;
-      const margin = fontSize / 5;
+      const fontSize = promisedImage.width / 30;
+      const margin = fontSize / 2;
       const startLine = this.date || this.position ? fontSize * 1.5 : 0;
 
       ctx.fillStyle = "white";
@@ -239,11 +238,16 @@ export default {
       }
 
       ctx.fillStyle = "black";
-      ctx.fillText(`${this.date} ${this.position}`, 5, fontSize);
+      ctx.fillText(
+        `${this.date ? this.date : ""} ${this.position}`,
+        0,
+        fontSize
+      );
       for (let j = 0; j < this.contents.length; j++) {
-        ctx.fillText(this.contents[j], 5, (j + 1) * fontSize + startLine);
+        ctx.fillText(this.contents[j], 0, (j + 1) * fontSize + startLine);
       }
 
+      const previewImage = this.$refs.preview;
       const dataUrl = canvas.toDataURL("image/png");
       const errorCode = "data:,";
       if (dataUrl === errorCode) {
