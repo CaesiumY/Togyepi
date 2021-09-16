@@ -1,13 +1,13 @@
 <template>
   <section class="d-flex flex-column justify-center text-center my-5">
     <article class="mx-5">
-      <canvas
-        v-if="image.length !== 0"
-        class="my-5"
-        ref="snapshot"
-        style="border: 1px solid #bbb"
-      >
-      </canvas>
+      <canvas v-if="image.length !== 0" class="my-5" ref="snapshot"> </canvas>
+      <img
+        class="my-5 captured-image"
+        v-if="image"
+        :src="image"
+        ref="preview"
+      />
       <v-file-input
         v-if="image.length === 0"
         accept="image/png, image/jpeg"
@@ -93,14 +93,23 @@
             <v-icon left> mdi-plus </v-icon> 더하기
           </v-btn>
 
-          <v-btn color="error" @click="removeContentOne">
+          <v-btn
+            v-if="contents.length !== 0"
+            color="error"
+            @click="removeContentOne"
+          >
             <v-icon left> mdi-minus </v-icon>
             빼기
           </v-btn>
         </v-card-actions>
       </v-card>
 
-      <v-btn class="mx-3 font-weight-bold" large color="primary">
+      <v-btn
+        class="mx-3 font-weight-bold"
+        large
+        color="primary"
+        @click="drawCanvas"
+      >
         <v-icon left> mdi-pencil </v-icon> 그리기
       </v-btn>
     </section>
@@ -169,9 +178,48 @@ export default {
     },
     removeDrawing() {
       this.image = "";
+      // TODO: 캔버스 초기화
+    },
+
+    drawCanvas() {
+      const canvas = this.$refs.snapshot;
+      const image = this.$refs.preview;
+      const ctx = canvas.getContext("2d");
+
+      const imageSrc = new Image();
+      imageSrc.src = this.image;
+      canvas.width = imageSrc.width;
+      canvas.height = imageSrc.height;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      ctx.lineWidth = "0.5";
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+      ctx.fillRect(0, 0, 85, 20);
+      for (var i = 0; i < this.contents.length; i++) {
+        ctx.fillRect(0, 0 + 19, this.contents[i].length * 9 + 65, 20 + i * 19);
+      }
+      ctx.fillStyle = "black";
+      ctx.fillText(this.date, 0 + 5, 0 + 15);
+      for (var j = 0; j < this.contents.length; j++) {
+        ctx.fillText(this.contents[j], 0 + 5, 0 + 33 + j * 20);
+      }
+
+      this.image = canvas.toDataURL("image/png");
+      console.log(ctx);
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+canvas {
+  border: 1px solid #bbb;
+  display: none;
+}
+
+.captured-image {
+  width: 100%;
+}
+</style>
