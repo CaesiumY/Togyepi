@@ -1,7 +1,7 @@
 <template>
   <section class="d-flex flex-column justify-center text-center my-5">
     <article class="mx-5">
-      <canvas v-if="image.length !== 0" class="my-5" ref="snapshot"> </canvas>
+      <canvas class="my-5" ref="snapshot"> </canvas>
       <img
         class="my-5 captured-image"
         v-if="image"
@@ -203,8 +203,6 @@ export default {
       const margin = fontSize / 5;
       const startLine = this.date ? fontSize * 1.5 : 0;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       ctx.fillStyle = "white";
       ctx.lineWidth = "1";
       ctx.font = `${fontSize}px roboto`;
@@ -236,7 +234,6 @@ export default {
       }
 
       previewImage.src = canvas.toDataURL("image/png");
-      console.log(ctx);
     },
   },
 };
