@@ -111,6 +111,7 @@
         color="primary"
         @click="drawCanvas"
         :disabled="!image"
+        :loading="isLoading"
       >
         <v-icon left> mdi-pencil </v-icon> 그리기
       </v-btn>
@@ -129,6 +130,7 @@ export default {
     date: "",
     contents: [],
     image: "",
+    isLoading: false,
   }),
   computed: {
     form() {
@@ -154,7 +156,7 @@ export default {
         )}`;
       };
       const geolocationError = (err) => {
-        console.error("Error occurred. Error code: " + err.code);
+        console.error(err);
         alert("위치를 불러오는데 실패했습니다.");
         this.position = "";
       };
@@ -189,6 +191,8 @@ export default {
         !this.image
       )
         return;
+
+      this.isLoading = true;
 
       const canvas = this.$refs.snapshot;
       const previewImage = this.$refs.preview;
@@ -233,7 +237,15 @@ export default {
         ctx.fillText(this.contents[j], 5, (j + 1) * fontSize + startLine);
       }
 
-      previewImage.src = canvas.toDataURL("image/png");
+      const dataUrl = canvas.toDataURL("image/png");
+
+      if (dataUrl === "data:,") {
+        alert("렌더링에 실패했습니다");
+      } else {
+        previewImage.src = dataUrl;
+      }
+
+      this.isLoading = false;
     },
   },
 };
