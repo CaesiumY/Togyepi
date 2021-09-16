@@ -185,7 +185,7 @@ export default {
       // TODO: 캔버스 초기화
     },
 
-    drawCanvas() {
+    async drawCanvas() {
       if (
         (!this.position && !this.date && this.contents.length === 0) ||
         !this.image
@@ -198,10 +198,17 @@ export default {
       const previewImage = this.$refs.preview;
       const ctx = canvas.getContext("2d");
 
-      const imageSrc = new Image();
-      imageSrc.src = this.image;
-      canvas.width = imageSrc.width;
-      canvas.height = imageSrc.height;
+      // NOTE new Image()로 불러온 데이터의 width, height 가져오기가 늦어지면 간헐적으로 오류 발생 -> 일단 Promise로 해결되는지 지켜보기
+      const promised = new Promise((resolve) => {
+        const imageSrc = new Image();
+        imageSrc.src = this.image;
+
+        resolve(imageSrc);
+      });
+
+      const promisedImage = await promised;
+      canvas.width = promisedImage.width;
+      canvas.height = promisedImage.height;
 
       const fontSize = 75;
       const margin = fontSize / 5;
@@ -211,7 +218,7 @@ export default {
       ctx.lineWidth = "1";
       ctx.font = `${fontSize}px roboto`;
 
-      ctx.drawImage(imageSrc, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(promisedImage, 0, 0, canvas.width, canvas.height);
 
       if (this.date || this.position) {
         const dateWidth = Math.round(ctx.measureText(this.date).width) + margin;
@@ -237,7 +244,6 @@ export default {
         ctx.fillText(this.contents[j], 5, (j + 1) * fontSize + startLine);
       }
 
-      // FIXME new Image()로 불러온 데이터의 width, height 가져오기가 늦어지면 간헐적으로 오류 발생
       const dataUrl = canvas.toDataURL("image/png");
       const errorCode = "data:,";
       if (dataUrl === errorCode) {
