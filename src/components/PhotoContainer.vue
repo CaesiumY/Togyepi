@@ -1,26 +1,6 @@
 <template>
   <section class="d-flex flex-column justify-center text-center my-5">
-    <article class="mx-5">
-      <canvas class="my-5" ref="snapshot"> </canvas>
-      <img
-        class="my-5 captured-image"
-        v-if="image"
-        :src="image"
-        ref="preview"
-      />
-      <v-file-input
-        v-if="image.length === 0"
-        accept="image/png, image/jpeg"
-        prepend-icon="mdi-camera"
-        label="사진을 넣어주세요"
-        show-size
-        @change="setImageInput"
-      ></v-file-input>
-      <v-btn v-else color="error" @click="removeDrawing">
-        <v-icon left> mdi-minus </v-icon>
-        그림 지우기
-      </v-btn>
-    </article>
+    <canvas-input v-model="image" ref="canvasInput"></canvas-input>
     <section>
       <v-card ref="form" class="ma-5">
         <v-card-text>
@@ -122,15 +102,19 @@
 
 <script>
 import { mainColor } from "../constants";
+import CanvasInput from "./CanvasInput.vue";
 
 export default {
+  components: {
+    CanvasInput,
+  },
   data: () => ({
     mainColor,
+    image: "",
     isDatePicker: false,
     position: "",
     date: "",
     contents: [],
-    image: "",
     isLoading: false,
   }),
   computed: {
@@ -140,6 +124,11 @@ export default {
         date: this.date,
         contents: this.contents.slice(),
       };
+    },
+  },
+  watch: {
+    date() {
+      if (this.date === null) this.date = "";
     },
   },
   methods: {
@@ -173,18 +162,6 @@ export default {
     removeContentOne() {
       this.contents.splice(this.contents.length - 1, 1);
     },
-    setImageInput(item) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        this.image = e.target.result;
-      };
-      reader.readAsDataURL(item);
-    },
-    removeDrawing() {
-      this.image = "";
-      // TODO: 캔버스 초기화
-    },
 
     async drawCanvas() {
       if (
@@ -194,7 +171,7 @@ export default {
         return;
 
       this.isLoading = true;
-      const canvas = this.$refs.snapshot;
+      const canvas = this.$refs.canvasInput.$refs.snapshot;
       const ctx = canvas.getContext("2d");
 
       // NOTE new Image()로 불러온 데이터의 width, height 가져오기가 늦어지면 간헐적으로 오류 발생 -> 일단 Promise로 해결되는지 지켜보기
@@ -247,7 +224,7 @@ export default {
         ctx.fillText(this.contents[j], 0, (j + 1) * fontSize + startLine);
       }
 
-      const previewImage = this.$refs.preview;
+      const previewImage = this.$refs.canvasInput.$refs.preview;
       const dataUrl = canvas.toDataURL("image/png");
       const errorCode = "data:,";
       if (dataUrl === errorCode) {
@@ -261,13 +238,4 @@ export default {
 };
 </script>
 
-<style scoped>
-canvas {
-  border: 1px solid #bbb;
-  display: none;
-}
-
-.captured-image {
-  width: 100%;
-}
-</style>
+<style scoped></style>
