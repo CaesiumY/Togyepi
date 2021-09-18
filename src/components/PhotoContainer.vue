@@ -1,177 +1,47 @@
 <template>
   <section class="d-flex flex-column justify-center text-center my-5">
     <canvas-input v-model="image" ref="canvasInput"></canvas-input>
-    <section>
-      <v-card ref="form" class="ma-5">
-        <v-card-text>
-          <v-btn
-            v-if="position.length === 0"
-            class="mx-12 my-3 font-weight-bold text-button"
-            outlined
-            rounded
-            large
-            :color="mainColor"
-            @click="getCurrentPosition"
-          >
-            <v-icon left> mdi-crosshairs-gps </v-icon> 내 위치 받아오기
-          </v-btn>
-          <v-btn
-            v-else
-            class="mx-12 my-3 font-weight-bold text-button"
-            outlined
-            rounded
-            large
-            color="error"
-            @click="removeCurrentPosition"
-          >
-            <v-icon left> mdi-crosshairs-gps </v-icon> 내 위치 지우기
-          </v-btn>
-          <v-text-field
-            v-if="position"
-            ref="position"
-            v-model="position"
-            prepend-icon="mdi-map-marker"
-            label="현재 위도 경도"
-            readonly
-          ></v-text-field>
-
-          <v-menu
-            v-model="isDatePicker"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="date"
-                label="날짜"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-                clearable
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              v-model="date"
-              @input="isDatePicker = false"
-            ></v-date-picker>
-          </v-menu>
-
-          <v-text-field
-            v-for="(content, index) in contents"
-            :key="index"
-            ref="content"
-            v-model="contents[index]"
-            :rules="[() => !!content || '내용을 입력하세요']"
-            prepend-icon="mdi-pencil"
-            :label="`내용 ${index + 1}`"
-          ></v-text-field>
-        </v-card-text>
-        <v-card-actions class="d-flex justify-center pb-5">
-          <v-btn color="success" @click="() => contents.push([])">
-            <v-icon left> mdi-plus </v-icon> 더하기
-          </v-btn>
-
-          <v-btn
-            v-if="contents.length !== 0"
-            color="error"
-            @click="removeContentOne"
-          >
-            <v-icon left> mdi-minus </v-icon>
-            빼기
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-
-      <v-btn
-        class="mx-3 font-weight-bold"
-        large
-        color="primary"
-        @click="drawCanvas"
-        :disabled="!image"
-        :loading="isLoading"
-      >
-        <v-icon left> mdi-pencil </v-icon> 그리기
-      </v-btn>
-    </section>
+    <canvas-form
+      v-model="form"
+      :image="image"
+      :isLoading="isLoading"
+      @drawCanvas="drawCanvas"
+    ></canvas-form>
   </section>
 </template>
 
 <script>
-import { mainColor } from "../constants";
 import CanvasInput from "./CanvasInput.vue";
+import CanvasForm from "./CanvasForm.vue";
 
 export default {
   components: {
     CanvasInput,
+    CanvasForm,
   },
   data: () => ({
-    mainColor,
     image: "",
-    isDatePicker: false,
-    position: "",
-    date: "",
-    contents: [],
     isLoading: false,
-  }),
-  computed: {
-    form() {
-      return {
-        position: this.position,
-        date: this.date,
-        contents: this.contents.slice(),
-      };
+    form: {
+      position: "",
+      date: "",
+      contents: [],
     },
-  },
+  }),
   watch: {
     date() {
       if (this.date === null) this.date = "";
     },
   },
   methods: {
-    getCurrentPosition() {
-      if (!navigator.geolocation)
-        return alert("위치 정보가 지원되지 않는 환경입니다.");
-
-      const geolocationSuccess = (pos) => {
-        const {
-          coords: { latitude, longitude },
-        } = pos;
-
-        this.position = `위도: ${latitude.toFixed(7)} 경도: ${longitude.toFixed(
-          7
-        )}`;
-      };
-      const geolocationError = (err) => {
-        console.error(err);
-        alert("위치를 불러오는데 실패했습니다.");
-        this.position = "";
-      };
-
-      navigator.geolocation.getCurrentPosition(
-        geolocationSuccess,
-        geolocationError
-      );
-    },
-    removeCurrentPosition() {
-      this.position = "";
-    },
-    removeContentOne() {
-      this.contents.splice(this.contents.length - 1, 1);
-    },
-
     async drawCanvas() {
-      if (
-        (!this.position && !this.date && this.contents.length === 0) ||
-        !this.image
-      )
-        return;
+      const { position, date, contents } = this.form;
+
+      if ((!position && !date && contents.length === 0) || !this.image) return;
 
       this.isLoading = true;
-      const { canvasInput } = this.$refs.canvasInput;
+      const { canvasInput } = this.$refs;
+      console.log("input", canvasInput);
       const canvas = canvasInput.$refs.snapshot;
       const ctx = canvas.getContext("2d");
 
@@ -189,7 +59,7 @@ export default {
 
       const fontSize = promisedImage.width / 30;
       const margin = fontSize / 2;
-      const startLine = this.date || this.position ? fontSize * 1.5 : 0;
+      const startLine = date || position ? fontSize * 1.5 : 0;
 
       ctx.fillStyle = "white";
       ctx.lineWidth = "1";
@@ -197,32 +67,28 @@ export default {
 
       ctx.drawImage(promisedImage, 0, 0, canvas.width, canvas.height);
 
-      if (this.date || this.position) {
-        const dateWidth = Math.round(ctx.measureText(this.date).width) + margin;
+      if (date || position) {
+        const dateWidth = Math.round(ctx.measureText(date).width) + margin;
         const positionWidth =
-          Math.round(ctx.measureText(this.position).width) + margin;
+          Math.round(ctx.measureText(position).width) + margin;
 
         ctx.fillRect(0, 0, dateWidth + positionWidth, startLine);
       }
 
-      for (let i = 0; i < this.contents.length; i++) {
-        if (this.contents[i].length === 0) continue;
+      for (let i = 0; i < contents.length; i++) {
+        if (contents[i].length === 0) continue;
         ctx.fillRect(
           0,
           startLine + i * fontSize,
-          ctx.measureText(this.contents[i]).width + margin,
+          ctx.measureText(contents[i]).width + margin,
           fontSize * 1.2
         );
       }
 
       ctx.fillStyle = "black";
-      ctx.fillText(
-        `${this.date ? this.date : ""} ${this.position}`,
-        0,
-        fontSize
-      );
-      for (let j = 0; j < this.contents.length; j++) {
-        ctx.fillText(this.contents[j], 0, (j + 1) * fontSize + startLine);
+      ctx.fillText(`${date ? date : ""} ${position}`, 0, fontSize);
+      for (let j = 0; j < contents.length; j++) {
+        ctx.fillText(contents[j], 0, (j + 1) * fontSize + startLine);
       }
 
       const previewImage = canvasInput.$refs.preview;
