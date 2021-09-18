@@ -171,7 +171,8 @@ export default {
         return;
 
       this.isLoading = true;
-      const canvas = this.$refs.canvasInput.$refs.snapshot;
+      const { canvasInput } = this.$refs.canvasInput;
+      const canvas = canvasInput.$refs.snapshot;
       const ctx = canvas.getContext("2d");
 
       // NOTE new Image()로 불러온 데이터의 width, height 가져오기가 늦어지면 간헐적으로 오류 발생 -> 일단 Promise로 해결되는지 지켜보기
@@ -224,7 +225,7 @@ export default {
         ctx.fillText(this.contents[j], 0, (j + 1) * fontSize + startLine);
       }
 
-      const previewImage = this.$refs.canvasInput.$refs.preview;
+      const previewImage = canvasInput.$refs.preview;
       const dataUrl = canvas.toDataURL("image/png");
       const errorCode = "data:,";
       if (dataUrl === errorCode) {

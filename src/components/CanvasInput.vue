@@ -28,7 +28,6 @@ export default {
   data: () => ({
     image: "",
   }),
-  computed: {},
   mounted() {
     this.image = this.value;
   },
