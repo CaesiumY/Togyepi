@@ -32,7 +32,6 @@
           label="현재 위도 경도"
           readonly
         ></v-text-field>
-        <p>{{ value }}</p>
         <v-menu
           v-model="isDatePicker"
           :close-on-content-click="false"

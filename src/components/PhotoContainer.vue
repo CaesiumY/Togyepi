@@ -41,7 +41,6 @@ export default {
 
       this.isLoading = true;
       const { canvasInput } = this.$refs;
-      console.log("input", canvasInput);
       const canvas = canvasInput.$refs.snapshot;
       const ctx = canvas.getContext("2d");
 
