@@ -1,13 +1,13 @@
 <template>
-  <calendar-component></calendar-component>
+  <calendar-container></calendar-container>
 </template>
 
 <script>
-import CalendarComponent from "@/components/CalendarComponent";
+import CalendarContainer from "@/components/CalendarContainer";
 
 export default {
   components: {
-    CalendarComponent,
+    CalendarContainer,
   },
 };
 </script>
