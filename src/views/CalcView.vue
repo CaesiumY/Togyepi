@@ -1,9 +1,14 @@
 <template>
-  <div>calc</div>
+  <calculator-container></calculator-container>
 </template>
 
 <script>
-export default {};
+import CalculatorContainer from "../components/CalculatorContainer.vue";
+export default {
+  components: {
+    CalculatorContainer,
+  },
+};
 </script>
 
 <style scoped></style>
