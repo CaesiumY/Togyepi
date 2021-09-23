@@ -9,6 +9,7 @@
         solo-inverted
         label="공식을 선택하세요"
         :items="formulaNames"
+        color="white"
       ></v-autocomplete>
     </article>
   </section>
