@@ -22,7 +22,13 @@
         label="공식을 선택하세요"
         :items="formulaNames"
         color="white"
+        @change="onChangeSelect"
       ></v-autocomplete>
+    </article>
+    <article>
+      <div v-for="(param, id) in currentFormula.params" :key="id">
+        {{ param }}
+      </div>
     </article>
   </section>
 </template>
@@ -31,16 +37,25 @@
 import calculatingFormula from "../utils/calculatingFormula";
 export default {
   data: () => ({
-    formula: calculatingFormula,
     formulaNames: Object.keys(calculatingFormula).map(
       (f) => calculatingFormula[f].name
     ),
     selectedFormula: "",
+    currentFormula: "",
     resultValue: 0,
     unit: "g/ml",
   }),
+  computed: {},
   mounted() {
-    console.log(this.formula);
+    console.log(calculatingFormula);
+  },
+  methods: {
+    onChangeSelect() {
+      const selectedValue = Object.values(calculatingFormula).find(
+        (f) => f.name === this.selectedFormula
+      );
+      this.currentFormula = selectedValue;
+    },
   },
 };
 </script>
