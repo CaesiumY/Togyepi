@@ -26,8 +26,13 @@
       ></v-autocomplete>
     </article>
     <article>
-      <div v-for="(param, id) in currentFormula.params" :key="id">
-        {{ param }}
+      <div v-for="(param, key, index) in currentFormula.params" :key="key">
+        <v-text-field
+          v-model="inputValues[index]"
+          :label="param"
+          :placeholder="key"
+          type="number"
+        ></v-text-field>
       </div>
     </article>
   </section>
@@ -44,6 +49,7 @@ export default {
     currentFormula: "",
     resultValue: 0,
     unit: "g/ml",
+    inputValues: [],
   }),
   computed: {},
   mounted() {
@@ -55,6 +61,7 @@ export default {
         (f) => f.name === this.selectedFormula
       );
       this.currentFormula = selectedValue;
+      this.inputValues = [];
     },
   },
 };
