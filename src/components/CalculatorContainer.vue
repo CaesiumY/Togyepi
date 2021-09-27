@@ -34,6 +34,7 @@
           type="number"
           prepend-icon="mdi-beaker-plus-outline"
           :suffix="unit"
+          clearable
         ></v-text-field>
       </div>
     </article>
@@ -58,12 +59,27 @@ export default {
     console.log(calculatingFormula);
   },
   methods: {
+    initData() {
+      this.inputValues = [];
+      this.resultValue = 0;
+    },
     onChangeSelect() {
       const selectedValue = Object.values(calculatingFormula).find(
         (f) => f.name === this.selectedFormula
       );
       this.currentFormula = selectedValue;
-      this.inputValues = [];
+      this.initData();
+    },
+    onCalculate(props) {
+      if (props.length < Object.keys(this.currentFormula.params).length) return;
+
+      this.resultValue = this.currentFormula.formula(...props);
+    },
+  },
+  watch: {
+    inputValues(value) {
+      this.onCalculate(value.map((v) => parseInt(v, 10)));
+      if (isNaN(this.resultValue)) this.resultValue = 0;
     },
   },
 };
