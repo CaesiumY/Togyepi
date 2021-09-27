@@ -78,7 +78,7 @@ export default {
   },
   watch: {
     inputValues(value) {
-      this.onCalculate(value.map((v) => parseInt(v, 10)));
+      this.onCalculate(value.map((v) => parseFloat(v, 10)));
       if (isNaN(this.resultValue)) this.resultValue = 0;
     },
   },
