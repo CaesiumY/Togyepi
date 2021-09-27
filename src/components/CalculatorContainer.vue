@@ -32,6 +32,8 @@
           :label="param"
           :placeholder="key"
           type="number"
+          prepend-icon="mdi-beaker-plus-outline"
+          :suffix="unit"
         ></v-text-field>
       </div>
     </article>
