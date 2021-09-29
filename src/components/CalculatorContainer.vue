@@ -16,7 +16,6 @@
       <v-autocomplete
         v-model="selectedFormula"
         auto-select-first
-        clearable
         rounded
         solo-inverted
         label="공식을 선택하세요"
@@ -38,6 +37,32 @@
         ></v-text-field>
       </div>
     </article>
+    <article
+      class="mt-5"
+      v-if="currentFormula.rules && currentFormula.rules.length > 0"
+    >
+      <v-expansion-panels focusable>
+        <v-expansion-panel>
+          <v-expansion-panel-header disable-icon-rotate>
+            참고 사항
+            <template v-slot:actions>
+              <v-icon color="primary"> mdi-information-outline </v-icon>
+            </template>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content class="pt-4">
+            <ul>
+              <li
+                class="text-left"
+                v-for="(rule, index) in currentFormula.rules"
+                :key="index"
+              >
+                {{ rule }}
+              </li>
+            </ul>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </article>
   </section>
 </template>
 
@@ -45,14 +70,15 @@
 import calculatingFormula from "../utils/calculatingFormula";
 export default {
   data: () => ({
-    formulaNames: Object.keys(calculatingFormula).map(
-      (f) => calculatingFormula[f].name
+    formulaNames: Object.values(calculatingFormula).map(
+      (f) => `${f.name} (${f.description})`
     ),
     selectedFormula: "",
     currentFormula: "",
     resultValue: 0,
     unit: "g/ml",
     inputValues: [],
+    rules: [],
   }),
   computed: {},
   mounted() {
@@ -65,9 +91,10 @@ export default {
     },
     onChangeSelect() {
       const selectedValue = Object.values(calculatingFormula).find(
-        (f) => f.name === this.selectedFormula
+        (f) => f.name === this.selectedFormula.split("(")[0].trim()
       );
       this.currentFormula = selectedValue;
+      this.rules = selectedValue.rules;
       this.initData();
     },
     onCalculate(props) {
