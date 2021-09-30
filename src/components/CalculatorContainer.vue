@@ -12,18 +12,10 @@
         type="text"
       ></v-text-field>
     </article>
-    <article>
-      <v-autocomplete
-        v-model="selectedFormula"
-        auto-select-first
-        rounded
-        solo-inverted
-        label="공식을 선택하세요"
-        :items="formulaNames"
-        color="white"
-        @change="onChangeSelect"
-      ></v-autocomplete>
-    </article>
+    <calculator-selector
+      :formulaNames="formulaNames"
+      :onChangeSelect="onChangeSelect"
+    ></calculator-selector>
     <article>
       <div v-for="(param, key, index) in currentFormula.params" :key="key">
         <v-text-field
@@ -68,19 +60,22 @@
 
 <script>
 import calculatingFormula from "../utils/calculatingFormula";
+import CalculatorSelector from "./CalculatorSelector.vue";
+
 export default {
+  components: {
+    CalculatorSelector,
+  },
   data: () => ({
     formulaNames: Object.values(calculatingFormula).map(
       (f) => `${f.name} (${f.description})`
     ),
-    selectedFormula: "",
     currentFormula: "",
     resultValue: 0,
     unit: "g/ml",
     inputValues: [],
     rules: [],
   }),
-  computed: {},
   mounted() {
     console.log(calculatingFormula);
   },
@@ -89,9 +84,9 @@ export default {
       this.inputValues = [];
       this.resultValue = 0;
     },
-    onChangeSelect() {
+    onChangeSelect(value) {
       const selectedValue = Object.values(calculatingFormula).find(
-        (f) => f.name === this.selectedFormula.split("(")[0].trim()
+        (f) => f.name === value.split("(")[0].trim()
       );
       this.currentFormula = selectedValue;
       this.rules = selectedValue.rules;
