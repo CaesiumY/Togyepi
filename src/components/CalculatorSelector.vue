@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="mt-10">
     <v-autocomplete
       auto-select-first
       rounded

@@ -1,7 +1,12 @@
 <template>
   <section class="d-flex flex-column justify-center text-center ma-5">
-    <article class="mt-10">
+    <calculator-selector
+      :formulaNames="formulaNames"
+      :onChangeSelect="onChangeSelect"
+    ></calculator-selector>
+    <article>
       <v-text-field
+        v-if="currentFormula"
         v-model="resultValue"
         label="결과 값"
         :suffix="unit"
@@ -12,10 +17,7 @@
         type="text"
       ></v-text-field>
     </article>
-    <calculator-selector
-      :formulaNames="formulaNames"
-      :onChangeSelect="onChangeSelect"
-    ></calculator-selector>
+
     <article>
       <div v-for="(param, key, index) in currentFormula.params" :key="key">
         <v-text-field
