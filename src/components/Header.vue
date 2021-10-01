@@ -25,10 +25,10 @@
       <v-list>
         <v-list-item-group v-model="selected" :color="mainColor">
           <v-list-item
-            v-for="([icon, text, route], i) in items"
-            :key="i"
+            v-for="([icon, text, route], index) in items"
+            :key="text"
             link
-            @click="pushRouterLink(route)"
+            @click="pushRouterLink(route, index)"
           >
             <v-list-item-icon>
               <v-icon>{{ icon }}</v-icon>
@@ -66,7 +66,7 @@
 
       <v-toolbar-title
         class="text-h5 font-weight-bold"
-        @click="pushRouterLink('')"
+        @click="pushRouterLink()"
         style="cursor: pointer"
       >
         토질 계산 피료해?
@@ -101,11 +101,10 @@ export default {
   },
 
   methods: {
-    pushRouterLink(route) {
+    pushRouterLink(route = "", index = 0) {
       if (this.$route.path.slice(1) === route) return;
-
       this.$router.push(`/${route}`);
-      this.setSelectedPathIndex();
+      this.selected = index;
     },
     setSelectedPathIndex() {
       const path = this.$route.path.slice(1);
