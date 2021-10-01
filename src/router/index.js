@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import CalcView from "../views/CalcView.vue";
-import PhotoView from "../views/PhotoView.vue";
+import CanvasView from "../views/CanvasView.vue";
 import PlanView from "../views/PlanView.vue";
 
 Vue.use(VueRouter);
@@ -17,9 +17,9 @@ const routes = [
     component: CalcView,
   },
   {
-    path: "/photo",
-    name: "PhotoView",
-    component: PhotoView,
+    path: "/canvas",
+    name: "CanvasView",
+    component: CanvasView,
   },
   {
     path: "/plan",

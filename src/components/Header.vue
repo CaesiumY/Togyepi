@@ -93,7 +93,7 @@ export default {
       drawer: false,
       items: [
         ["mdi-calculator", "계산", ""],
-        ["mdi-camera", "사진", "photo"],
+        ["mdi-camera", "사진", "canvas"],
         ["mdi-notebook", "플랜", "plan"],
       ],
       selected: 0,

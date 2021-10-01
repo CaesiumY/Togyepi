@@ -6,7 +6,6 @@
     ></calculator-selector>
     <calculator-form
       :currentFormula="currentFormula"
-      :rules="rules"
       ref="form"
     ></calculator-form>
   </section>
