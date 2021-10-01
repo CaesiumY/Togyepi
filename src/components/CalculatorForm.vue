@@ -25,37 +25,20 @@
         ></v-text-field>
       </div>
     </article>
-    <article
-      class="mt-5"
-      v-if="currentFormula.rules && currentFormula.rules.length > 0"
-    >
-      <v-expansion-panels focusable>
-        <v-expansion-panel>
-          <v-expansion-panel-header disable-icon-rotate>
-            참고 사항
-            <template v-slot:actions>
-              <v-icon color="primary"> mdi-information-outline </v-icon>
-            </template>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content class="pt-4">
-            <ul>
-              <li
-                class="text-left"
-                v-for="(rule, index) in currentFormula.rules"
-                :key="index"
-              >
-                {{ rule }}
-              </li>
-            </ul>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </article>
+    <notification-expansion
+      title="참고사항"
+      icon="mdi-information-outline"
+      :rules="currentFormula.rules"
+    ></notification-expansion>
   </div>
 </template>
 
 <script>
+import NotificationExpansion from "./NotificationExpansion.vue";
 export default {
+  components: {
+    NotificationExpansion,
+  },
   props: {
     currentFormula: {
       type: Object,
