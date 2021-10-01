@@ -2,7 +2,7 @@
   <div>
     <article>
       <v-text-field
-        v-if="currentFormula"
+        v-if="Object.keys(currentFormula).length > 0"
         v-model="resultValue"
         label="결과 값"
         :suffix="unit"

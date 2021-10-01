@@ -29,9 +29,6 @@ export default {
     currentFormula: {},
     rules: [],
   }),
-  mounted() {
-    console.log(calculatingFormula);
-  },
   methods: {
     onChangeSelect(value) {
       const selectedValue = Object.values(calculatingFormula).find(
