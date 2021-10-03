@@ -14,5 +14,9 @@ export default {
   components: {
     Header,
   },
+  metaInfo: {
+    title: "토계피",
+    titleTemplate: "%s | 토질 계산 피료해",
+  },
 };
 </script>

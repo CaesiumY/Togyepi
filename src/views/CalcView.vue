@@ -8,6 +8,9 @@ export default {
   components: {
     CalculatorContainer,
   },
+  metaInfo: {
+    title: "토계피",
+  },
 };
 </script>
 

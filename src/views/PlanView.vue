@@ -9,6 +9,9 @@ export default {
   components: {
     CalendarContainer,
   },
+  metaInfo: {
+    title: "플랜",
+  },
 };
 </script>
 

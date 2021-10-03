@@ -9,6 +9,9 @@ export default {
   components: {
     CanvasContainer,
   },
+  metaInfo: {
+    title: "사진",
+  },
 };
 </script>
 
