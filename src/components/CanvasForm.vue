@@ -4,7 +4,7 @@
       <v-card-text>
         <v-btn
           v-if="value.position.length === 0"
-          class="mx-12 my-3 font-weight-bold text-button"
+          class="mx-auto my-3 font-weight-bold text-button"
           outlined
           rounded
           large
