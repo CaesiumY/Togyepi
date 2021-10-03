@@ -2,7 +2,7 @@
   <v-app>
     <Header></Header>
     <v-main>
-      <router-view />
+      <router-view class="app ma-auto" />
     </v-main>
   </v-app>
 </template>
@@ -20,3 +20,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.app {
+  position: relative;
+  max-width: 720px;
+}
+</style>

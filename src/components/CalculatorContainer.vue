@@ -1,5 +1,5 @@
 <template>
-  <section class="d-flex flex-column justify-center text-center ma-5">
+  <section class="d-flex flex-column justify-center text-center">
     <calculator-selector
       :formulaNames="formulaNames"
       :onChangeSelect="onChangeSelect"
