@@ -4,15 +4,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Togyepi/css/app.4b31bd02.css"
   },
   {
-    "revision": "cfef359d1c3dc027d46a",
-    "url": "/Togyepi/css/chunk-vendors.1ae6e1ee.css"
+    "revision": "518ffb9c5ef14640653a",
+    "url": "/Togyepi/css/chunk-vendors.6599f4e1.css"
   },
   {
     "revision": "eb2c9e69c65bc719551daae36fab3773",
     "url": "/Togyepi/img/logo_only.eb2c9e69.png"
   },
   {
-    "revision": "10e2ea7f87f497fec1693e2e3649f8ce",
+    "revision": "12f9bdf1aafc4333dd298dff388c7073",
     "url": "/Togyepi/index.html"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Togyepi/js/app.a5711cc3.js"
   },
   {
-    "revision": "cfef359d1c3dc027d46a",
+    "revision": "518ffb9c5ef14640653a",
     "url": "/Togyepi/js/chunk-vendors.3bc4b1c1.js"
   },
   {

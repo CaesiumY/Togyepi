@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Togyepi/precache-manifest.27cc05a1109e1891c76e9fd6e0bc1f81.js"
+  "/Togyepi/precache-manifest.20c9477ac1d9952924bda458de134abd.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "togyepi"});
