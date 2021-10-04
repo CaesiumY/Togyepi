@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b9e96ecde69408186fbb",
-    "url": "/Togyepi/css/app.4b31bd02.css"
+    "revision": "c401b1f5b941b86244c9",
+    "url": "/Togyepi/css/app.a943b27a.css"
   },
   {
     "revision": "518ffb9c5ef14640653a",
@@ -12,12 +12,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Togyepi/img/logo_only.eb2c9e69.png"
   },
   {
-    "revision": "12f9bdf1aafc4333dd298dff388c7073",
+    "revision": "97a05ff501b0d63e4aa4fe36750fd905",
     "url": "/Togyepi/index.html"
   },
   {
-    "revision": "b9e96ecde69408186fbb",
-    "url": "/Togyepi/js/app.a5711cc3.js"
+    "revision": "c401b1f5b941b86244c9",
+    "url": "/Togyepi/js/app.0485cb83.js"
   },
   {
     "revision": "518ffb9c5ef14640653a",
