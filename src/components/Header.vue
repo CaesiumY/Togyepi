@@ -61,7 +61,11 @@
     </v-navigation-drawer>
 
     <v-app-bar app :color="mainColor" dark>
-      <v-app-bar-nav-icon class="text-h5" @click="drawer = !drawer">
+      <v-app-bar-nav-icon
+        class="text-h5"
+        @click="drawer = !drawer"
+        aria-label="menu"
+      >
       </v-app-bar-nav-icon>
 
       <v-toolbar-title

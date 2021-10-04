@@ -17,6 +17,12 @@ export default {
   metaInfo: {
     title: "토계피",
     titleTemplate: "%s | 토질 계산 피료해",
+    meta: [
+      {
+        name: "description",
+        content: "토질 계산 피료해? 토질 계산을 도와주는 토계피입니다.",
+      },
+    ],
   },
 };
 </script>
