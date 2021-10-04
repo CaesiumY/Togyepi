@@ -138,8 +138,7 @@ export default {
         )} 경도: ${longitude.toFixed(7)}`;
       };
       const geolocationError = (err) => {
-        console.error(err);
-        alert("위치를 불러오는데 실패했습니다.");
+        alert(`위치를 불러오는데 실패했습니다.\n 이유: ${err.message}`);
         this.value.position = "";
       };
 
